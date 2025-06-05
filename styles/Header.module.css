@@ -1,0 +1,45 @@
+/* styles/Header.module.css */
+
+.header {
+  background-color: #333;
+  color: white;
+  padding: 1rem 0;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.logo a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navLinks {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.navLinks li {
+  margin-left: 20px;
+}
+
+.navLinks a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.navLinks a:hover {
+  color: #0070f3; /* Example hover color */
+}

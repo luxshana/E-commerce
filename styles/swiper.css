@@ -1,0 +1,39 @@
+/* styles/swiper.css or any relevant CSS file */
+.promos-wrapper {
+  margin-top: 20px;
+}
+
+.pitem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.pcont {
+  padding: 20px;
+  flex: 1; /* Take remaining space */
+}
+
+.inme {
+  text-align: center;
+}
+
+.pimg {
+  flex: 2; /* Take more space for the image */
+  position: relative; /* Important for next/image with fill or responsive */
+  height: 200px; /* Example height for pimg div, adjust as needed */
+}
+/* If using next/image with layout="fill" inside .pimg, you might need to set height */
+/* .pimg > span { /* next/image wrapper */
+/* position: absolute !important; */
+/* top: 0; */
+/* left: 0; */
+/* width: 100%; */
+/* height: 100%; */
+/* } */
+/* .pimg img { */
+/* object-fit: cover; */
+/* } */

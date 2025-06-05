@@ -1,0 +1,18 @@
+import AllCategories from "../components/AllCategories";
+import CategoryMenu from "../components/CategoryMenu";
+import Promos from "../components/Promos";
+import CatSlider from "../components/CatSlider";
+
+export default function Home() {
+  return (
+    <>
+      <div style={{ padding: "1rem" }}>
+        <Promos />
+        <CatSlider />
+
+        <AllCategories />
+        <CategoryMenu />
+      </div>
+    </>
+  );
+}

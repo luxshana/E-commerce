@@ -1,0 +1,78 @@
+/* styles/SliderMenu.module.css */
+
+.sliderMenu {
+  position: fixed;
+  top: 0;
+  right: -300px; /* Start off-screen to the right */
+  width: 300px; /* Width of the menu */
+  height: 100vh;
+  background-color: #222; /* Darker background for the menu */
+  color: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transition: right 0.3s ease-in-out; /* Smooth sliding transition */
+  z-index: 1000; /* Ensure it's above other content */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.sliderMenu.open {
+  right: 0; /* Slide into view */
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  align-self: flex-end; /* Push button to the top right */
+  cursor: pointer;
+  padding: 0;
+  line-height: 1; /* Adjust line height for better 'x' display */
+}
+
+.closeButton:hover {
+  color: #0070f3;
+}
+
+.menuNav ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px; /* Space from close button */
+}
+
+.menuNav li {
+  margin-bottom: 20px;
+}
+
+.menuNav a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  display: block; /* Make the whole area clickable */
+  padding: 10px 0;
+  transition: color 0.3s ease;
+}
+
+.menuNav a:hover {
+  color: #0070f3;
+}
+
+/* Optional: Overlay to dim background when menu is open */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999; /* Below the menu */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
