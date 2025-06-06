@@ -40,7 +40,7 @@ export default function CatSlider() {
   }, []);
 
   return (
-    <div className="cat-slider-wrapper">
+    <div className="cat-slider-wrapper bg-white sticky top-[70px] z-40">
       <Swiper
         modules={[Autoplay]}
         loop={true}
@@ -58,7 +58,10 @@ export default function CatSlider() {
       >
         {categories.map((cat) => (
           <SwiperSlide key={cat.id}>
-            <Link href={`/category/${cat.id}`} className="cat-slide-link">
+            <Link href={`/category/${cat.id}`} className="cat-slide-link py-3 px-1">
+            {/* <button>
+              <img src={cat.image_web}/>
+            </button> */}
               <div className="cat-slide-box">
                 <h4>{cat.title}</h4>
               </div>

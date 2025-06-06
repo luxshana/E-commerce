@@ -101,11 +101,13 @@ header .menu-toggle {
 .menu ul li a:hover {
   background-color: #0059b3;
 }
-.slider-container {
-  height: 50vh;
-}
+/* .slider-container {
+ 
+  border-bottom-right-radius: 50;
+  border-bottom-left-radius: 50;
+} */
 
-.slider-container::after {
+/* .slider-container::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -114,7 +116,7 @@ header .menu-toggle {
   height: 50px;
   background: white;
   clip-path: ellipse(60% 100% at 50% 100%);
-}
+} */
 .cart-info img {
   width: 28px;
   height: 28px;
@@ -1392,13 +1394,12 @@ button.prod_single_add {
   text-align: center;
   text-decoration: none;
   color: #fff;
-  padding: 1rem;
   transition: background 0.3s;
 }
 
 .cat-slide-box h4 {
   font-size: 0.8rem;
-  font-weight: 200;
+  font-weight: 600;
   margin: 0;
 }
 

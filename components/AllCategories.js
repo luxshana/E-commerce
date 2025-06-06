@@ -227,6 +227,7 @@ function CategoryBlock({
           {products.map(renderProduct)}
         </div>
         <button className="btnStyle3" onClick={() => onLoadMore(category.id)}>
+          
           🔄
         </button>
       </div>
