@@ -149,7 +149,7 @@ export default function ProductPage({ initialProduct }) {
             Total: €{calculateTotalPrice} ({quantity} x €{product.product.price})
           </p>
 
-          {/* Size Selection */}
+         
           <div className="p-4 bg-white rounded-lg shadow-md">
             <div className="text-base sm:text-lg font-medium mb-3">Size:</div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -179,7 +179,7 @@ export default function ProductPage({ initialProduct }) {
             </div>
           </div>
 
-          {/* Drinks Selection */}
+          
           <div className="p-4 bg-white rounded-lg shadow-md">
             <div className="text-base sm:text-lg font-medium mb-3">Drinks:</div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">

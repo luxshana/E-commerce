@@ -67,7 +67,7 @@ export default function Header({ loggedInUser, onLogout }) {
           <Link href="/cart">
             <div className="cart-info" aria-label="Cart summary">
               <Image src="/basket.png" alt="Cart" width={40} height={40} />
-              <span className="cart-icon" role="img" aria-label="Cart">
+              <span className="absolute -top-2 -right-2 text-white bg-[#74a352] text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center" role="img" aria-label="Cart">
                 {totalItems}
               </span>
             </div>

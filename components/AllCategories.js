@@ -159,7 +159,7 @@ function CategoryBlock({
   const renderProduct = (product) => (
     <div
       key={product.product_id}
-      className="prod_single_card"
+      className="prod_single_card mb-2"
       style={{ background: "#f9f9f9" }}
     >
       <div className="prod_single_img">
@@ -206,24 +206,24 @@ function CategoryBlock({
 
   return (
     <>
-      <Link href={`/category/${category.id}`} className="catx">
-        <div className="cat_imgHolder">
-          <Image
-            src={`${IMAGE_BASE_URL}${category.image_web}`}
-            alt={category.title}
-            width={200}
-            height={200}
-            style={{ objectFit: "cover" }}
-          />
+     <Link href={`/category/${category.id}`} className="group relative block overflow-hidden rounded-lg shadow-lg">
+      <div className="relative w-full h-48">
+        <Image
+          src={`${IMAGE_BASE_URL}${category.image_web}`}
+          alt={category.title}
+          fill
+          className="object-cover transition-opacity group-hover:opacity-90"
+        />
+        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 p-4">
+          <h3 className="text-white text-center text-lg font-semibold tracking-tight">
+            {category.title}
+          </h3>
         </div>
-        <div className="cat_product-details">
-          <h3>{category.title}</h3>
-          {/* {category.texts && <p>{category.texts}</p>} */}
-        </div>
-      </Link>
+      </div>
+    </Link>
 
-      <div className="products" style={{ padding: "0 0.75rem 0.75rem" }}>
-        <div className=" md:grid grid-cols-3 gap-4">
+      <div className="products mt-3" style={{ padding: "0 0.75rem 0.75rem" }}>
+        <div className="md:grid sm:gap-4 md:grid-cols-3">
           {products.map(renderProduct)}
         </div>
         <button className="btnStyle3" onClick={() => onLoadMore(category.id)}>

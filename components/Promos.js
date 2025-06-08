@@ -1,28 +1,28 @@
-"use client"; // Client component for dynamic fetching and Swiper functionality
+"use client";
 
 import { useEffect, useState } from "react";
 import { fetchPromos } from "../lib/api";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules"; // Only Autoplay is needed
+import { Autoplay } from "swiper/modules";
 import "swiper/css";
-import Image from "next/image"; // Import Next.js Image component
+import Image from "next/image";
 
 export default function PromoSlider() {
   const [promos, setPromos] = useState([]);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true); // loading state
+  const [loading, setLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     fetchPromos(2)
-      .then((data) => {
-        setPromos(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err);
-        setLoading(false);
-      });
+        .then((data) => {
+          setPromos(data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          setError(err);
+          setLoading(false);
+        });
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
@@ -32,44 +32,55 @@ export default function PromoSlider() {
 
   if (loading)
     return (
-      <div className="loading Beds">
-        <div className="gen_preloader1"></div>
-      </div>
+        <div className="loading Beds">
+          <div className="gen_preloader1"></div>
+        </div>
     );
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="w-full transition-all duration-300 bg-green-500 border-2 border-indigo-600 border-b-4xl  relative overflow-hidden ">
-      {/* Pseudo-element for semicircle bottom border */}
-      <div className="slider-container relative w-full overflow-hidden">
-        <Swiper
-          modules={[Autoplay]}
-          loop={true}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
-          spaceBetween={0}
-          slidesPerView={1}
-        >
-          {promos.map((promo) => (
-            <SwiperSlide key={promo.id}>
-              <a href={promo.link} className="block w-full h-full">
-                <div className="pitem w-full h-full">
-                  <div className="pimg w-full h-full">
-                    {promo.image_web && (
-                      <Image
-                        src={`https://orange-wolf-342633.hostingersite.com/uploads/promo_images/${promo.image_web}`}
-                        alt={promo.title}
-                        fill
-                        className="object-cover"
-                        priority={true}
-                      />
-                    )}
-                  </div>
-                </div>
-              </a>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+      <div className="w-full relative">
+        <div className="relative w-full h-[400px] md:h-[500px] bg-transparent">
+          <div className="absolute inset-0 overflow-hidden" style={{
+            clipPath: 'polygon(0% 0%, 100% 0%, 100% 85%, 50% 100%, 0% 85%)',
+            backgroundColor: 'transparent'
+          }}>
+            <Swiper
+                modules={[Autoplay]}
+                loop={true}
+                autoplay={{ delay: 3000, disableOnInteraction: false }}
+                spaceBetween={0}
+                slidesPerView={1}
+                className="h-full"
+            >
+              {promos.map((promo) => (
+                  <SwiperSlide key={promo.id}>
+                    <a href={promo.link} className="block w-full h-full">
+                      <div className="relative w-full h-full">
+                        {promo.image_web && (
+                            <Image
+                                src={`https://orange-wolf-342633.hostingersite.com/uploads/promo_images/${promo.image_web}`}
+                                alt={promo.title}
+                                fill
+                                className="object-cover"
+                                priority={true}
+                            />
+                        )}
+                      </div>
+                    </a>
+                  </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+
+          <div
+              className="absolute bottom-0 left-0 right-0 h-[20px] z-10"
+              style={{
+                clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 50% 70%, 0% 100%)',
+                backgroundColor: 'inherit'
+              }}
+          ></div>
+        </div>
       </div>
-    </div>
   );
 }
