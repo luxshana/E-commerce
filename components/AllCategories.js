@@ -223,7 +223,7 @@ function CategoryBlock({
     </Link>
 
       <div className="products mt-3" style={{ padding: "0 0.75rem 0.75rem" }}>
-        <div className="md:grid sm:gap-4 md:grid-cols-3">
+        <div className="md:grid sm:gap-4 md:grid-cols-4">
           {products.map(renderProduct)}
         </div>
         <button className="btnStyle3" onClick={() => onLoadMore(category.id)}>

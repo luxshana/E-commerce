@@ -23,7 +23,7 @@ body {
 /* styles.css */
 :root {
   --clr_one: #292929;
-  --clr_two: #95b97b;
+  --clr_two: #ffc52d;
   --clr_three: #74a352;
   --clr_four: #;
   --clr_five: #;
@@ -1393,7 +1393,7 @@ button.prod_single_add {
   display: block;
   text-align: center;
   text-decoration: none;
-  color: #fff;
+  color: #000;
   transition: background 0.3s;
 }
 

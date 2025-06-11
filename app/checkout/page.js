@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 import { checkout, fetchDeliverySlots } from "../../lib/api"; // Adjust path as needed
 import ShippingAddressAutocomplete from "../../components/ShippingAddressAutocomplete"; // Adjust path as needed
 
-
 const IMAGE_BASE_URL =
   "https://orange-wolf-342633.hostingersite.com/uploads/products/";
+
 export default function CheckoutPage() {
   const router = useRouter();
 
@@ -228,77 +228,120 @@ export default function CheckoutPage() {
   const isTakeaway = formData.delivery_method === "2";
 
   return (
-    <div className="ck-container">
-      <div className="page_ck_main_holder">
-        <div className="page_ck_main">
-          
+    <div className="container mx-auto px-4 py-8">
+      <div className="flex flex-col lg:flex-row gap-8">
+        {cart.length === 0 ? (
+          <div></div>
+        ) : (
+          <div className="flex-1 p-6 bg-gray-100 rounded-2xl">
+            <h2 className="text-base font-medium mb-4">Order Summary:</h2>
+            <div className="p-4 mb-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {cart.map((item) => (
+                  <div
+                    key={item.id}
+                    className="bg-white rounded-lg shadow-md flex items-center gap-4 p-4 cursor-pointer hover:shadow-lg transition"
+                  >
+                    <div className="flex-shrink-0">
+                      <img
+                        src={`${IMAGE_BASE_URL}${item.images?.[0] || "missing.png"}`}
+                        alt={item.product_name}
+                        className="w-24 h-24 object-cover rounded-md"
+                      />
+                    </div>
+                    <div className="text-sm">
+                      <p className="font-medium">{item.product_name}</p>
+                      <p>Quantity: {item.quantity}</p>
+                      <p>Price: €{(item.price * item.quantity).toFixed(2)}</p>
+                      {item.choices && (
+                        <p>
+                          Choices:{" "}
+                          {Object.entries(item.choices)
+                            .map(([key, value]) => `${key}: ${value}`)
+                            .join(", ")}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="text-sm">
+              <p className="mb-2">Subtotal: €{subTotal.toFixed(2)}</p>
+              <p className="mb-2">Delivery Fee: €{deliveryFee.toFixed(2)}</p>
+              {formData.use_points === 1 && loggedInUser && (
+                <p className="mb-2">
+                  Points Discount: -€
+                  {(Number(loggedInUser?.user_points) || 0).toFixed(2)}
+                </p>
+              )}
+              <h2 className="text-lg font-semibold">
+                Total: €{totalPrice.toFixed(2)}
+              </h2>
+            </div>
+          </div>
+        )}
+        <div className="flex-1">
           {loggedInUser && (
-            <div
-              style={{
-                marginBottom: 20,
-                padding: 10,
-                backgroundColor: "#f1f1f1",
-              }}>
-              <p>
+            <div className="mb-5 p-4 bg-gray-100 rounded-lg">
+              <p className="text-sm">
                 You are logged in as <strong>{loggedInUser.username}</strong>.
               </p>
             </div>
           )}
           {error && (
-            <div style={{ color: "red", marginBottom: 10 }}>{error}</div>
+            <div className="text-red-600 mb-4 text-sm">{error}</div>
           )}
-          <div className="delivery_method_buttons">
+          <div className="flex gap-2 mb-6">
+
             <button
               type="button"
-              style={{
-                background: isDelivery ? "#000" : "#f1f1f1",
-                color: isDelivery ? "#fff" : "#000",
-              }}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                isDelivery
+                  ? "bg-black text-white"
+                  : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+              }`}
               onClick={() =>
                 setFormData((prev) => ({ ...prev, delivery_method: "1" }))
-              }>
+              }
+            >
               Delivery
             </button>
             <button
               type="button"
-              style={{
-                background: isTakeaway ? "#000" : "#f1f1f1",
-                color: isTakeaway ? "#fff" : "#000",
-              }}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                isTakeaway
+                  ? "bg-black text-white"
+                  : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+              }`}
               onClick={() =>
                 setFormData((prev) => ({ ...prev, delivery_method: "2" }))
-              }>
+              }
+            >
               Takeaway
             </button>
             <button
               type="button"
-              style={{
-                background: isDineIn ? "#000" : "#f1f1f1",
-                color: isDineIn ? "#fff" : "#000",
-              }}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                isDineIn
+                  ? "bg-black text-white"
+                  : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+              }`}
               onClick={() =>
                 setFormData((prev) => ({ ...prev, delivery_method: "3" }))
-              }>
+              }
+            >
               Dine-In
             </button>
           </div>
           {cart.length === 0 ? (
-            <div
-              style={{
-                marginTop: 20,
-                fontSize: 18,
-                color: "#333",
-                padding: 20,
-                border: "1px solid #ddd",
-                borderRadius: 8,
-                textAlign: "center",
-              }}>
+            <div className="mt-6 p-6 border border-gray-200 rounded-lg text-center text-gray-700 text-lg">
               Your cart is empty. Please add items before checkout.
             </div>
           ) : (
             <div>
               {!loggedInUser && (
-                <div className="ck_fields_grp">
+                <div className="space-y-4 mb-6">
                   <input
                     name="email"
                     type="email"
@@ -307,12 +350,7 @@ export default function CheckoutPage() {
                     onChange={handleChange}
                     required
                     readOnly={!!loggedInUser}
-                    style={{
-                      display: "block",
-                      marginBottom: 10,
-                      width: "100%",
-                      padding: 8,
-                    }}
+                    className="w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                   <input
                     name="full_name"
@@ -321,12 +359,7 @@ export default function CheckoutPage() {
                     onChange={handleChange}
                     required
                     readOnly={!!loggedInUser}
-                    style={{
-                      display: "block",
-                      marginBottom: 10,
-                      width: "100%",
-                      padding: 8,
-                    }}
+                    className="w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                   <input
                     name="address"
@@ -335,12 +368,9 @@ export default function CheckoutPage() {
                     onChange={handleChange}
                     required={isDelivery}
                     readOnly={!!loggedInUser}
-                    style={{
-                      display: isDelivery ? "block" : "none",
-                      marginBottom: 10,
-                      width: "100%",
-                      padding: 8,
-                    }}
+                    className={`w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      isDelivery ? "block" : "hidden"
+                    }`}
                   />
                   <input
                     name="phone_number"
@@ -349,12 +379,7 @@ export default function CheckoutPage() {
                     onChange={handleChange}
                     required
                     readOnly={!!loggedInUser}
-                    style={{
-                      display: "none",
-                      marginBottom: 10,
-                      width: "100%",
-                      padding: 8,
-                    }}
+                    className="hidden w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                   <input
                     name="password"
@@ -363,12 +388,7 @@ export default function CheckoutPage() {
                     value={formData.password}
                     onChange={handleChange}
                     required
-                    style={{
-                      display: "block",
-                      marginBottom: 10,
-                      width: "100%",
-                      padding: 8,
-                    }}
+                    className="w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               )}
@@ -383,22 +403,14 @@ export default function CheckoutPage() {
                 />
               )}
               {(isDelivery || isTakeaway) && (
-                <div
-                  className="ck_fields_grp"
-                  style={{
-                    display: isDelivery || isTakeaway ? "block" : "none",
-                  }}>
+                <div className={`space-y-4 mb-6 ${isDelivery || isTakeaway ? "block" : "hidden"}`}>
                   <select
                     name="delivery_date"
                     value={formData.delivery_date}
                     onChange={handleChange}
                     required={isDelivery || isTakeaway}
-                    style={{
-                      display: "block",
-                      marginBottom: 10,
-                      width: "100%",
-                      padding: 8,
-                    }}>
+                    className="w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
                     <option value="">Select Date</option>
                     {Object.keys(deliverySlots).map((date) => (
                       <option key={date} value={date}>
@@ -411,12 +423,8 @@ export default function CheckoutPage() {
                     value={formData.delivery_time}
                     onChange={handleChange}
                     required={isDelivery || isTakeaway}
-                    style={{
-                      display: "block",
-                      marginBottom: 10,
-                      width: "100%",
-                      padding: 8,
-                    }}>
+                    className="w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
                     <option value="">Select Time</option>
                     {formData.delivery_date &&
                       deliverySlots[formData.delivery_date]?.map((time) => (
@@ -434,207 +442,92 @@ export default function CheckoutPage() {
                   value={formData.table_number}
                   onChange={handleChange}
                   required={isDineIn}
-                  style={{
-                    display: "block",
-                    marginBottom: 10,
-                    width: "100%",
-                    padding: 8,
-                  }}
+                  className="w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
                 />
               )}
               {loggedInUser && (
-                <div className="ck_fields_grp">
-                  <div className="use_points_toggle">
-                    <label style={{ marginRight: 10 }}>Use Points?</label>
+                <div className="mb-6">
+                  <div className="flex items-center gap-2">
+                    <label className="text-sm font-medium">Use Points?</label>
                     <button
                       type="button"
-                      style={{
-                        backgroundColor:
-                          formData.use_points === 1 ? "#000" : "#f1f1f1",
-                        color: formData.use_points === 1 ? "#fff" : "#000",
-                        marginRight: 10,
-                        padding: "8px 16px",
-                        border: "1px solid #ccc",
-                        borderRadius: "5px",
-                      }}
+                      className={`px-4 py-2 rounded-md text-sm font-medium border border-gray-300 transition-colors ${
+                        formData.use_points === 1
+                          ? "bg-black text-white"
+                          : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                      }`}
                       onClick={() =>
                         setFormData((prev) => ({ ...prev, use_points: 1 }))
-                      }>
+                      }
+                    >
                       Yes {(Number(loggedInUser?.user_points) || 0).toFixed(2)}
                     </button>
                     <button
                       type="button"
-                      style={{
-                        backgroundColor:
-                          formData.use_points === 0 ? "#000" : "#f1f1f1",
-                        color: formData.use_points === 0 ? "#fff" : "#000",
-                        padding: "8px 16px",
-                        border: "1px solid #ccc",
-                        borderRadius: "5px",
-                      }}
+                      className={`px-4 py-2 rounded-md text-sm font-medium border border-gray-300 transition-colors ${
+                        formData.use_points === 0
+                          ? "bg-black text-white"
+                          : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                      }`}
                       onClick={() =>
                         setFormData((prev) => ({ ...prev, use_points: 0 }))
-                      }>
+                      }
+                    >
                       No
                     </button>
                   </div>
                 </div>
               )}
-              <div className="ck_fields_grp">
-                <div className="py_btn_holder">
+              <div className="mb-6">
+                <div className="flex gap-2">
                   <label
-                    className="py_btn"
-                    style={{
-                      backgroundColor:
-                        formData.payment_method === "cash" ? "#000" : "#f1f1f1",
-                      color:
-                        formData.payment_method === "cash" ? "#fff" : "#000",
-                    }}>
+                    className={`px-4 py-2 rounded-md text-sm font-medium cursor-pointer transition-colors ${
+                      formData.payment_method === "cash"
+                        ? "bg-black text-white"
+                        : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                    }`}
+                  >
                     <input
                       type="radio"
                       name="payment_method"
                       value="cash"
                       checked={formData.payment_method === "cash"}
                       onChange={handleChange}
-                      style={{ display: "none" }}
+                      className="hidden"
                     />
                     Cash
                   </label>
                   <label
-                    className="py_btn"
-                    style={{
-                      backgroundColor:
-                        formData.payment_method === "card" ? "#000" : "#f1f1f1",
-                      color:
-                        formData.payment_method === "card" ? "#fff" : "#000",
-                    }}>
+                    className={`px-4 py-2 rounded-md text-sm font-medium cursor-pointer transition-colors ${
+                      formData.payment_method === "card"
+                        ? "bg-black text-white"
+                        : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                    }`}
+                  >
                     <input
                       type="radio"
                       name="payment_method"
                       value="card"
                       checked={formData.payment_method === "card"}
                       onChange={handleChange}
-                      style={{ display: "none" }}
+                      className="hidden"
                     />
                     Card
                   </label>
                 </div>
               </div>
-              <div className="go_checkout">
-                <button className="btnStyle1" onClick={handleCheckout}>
+              <div>
+                <button
+                  className="w-full bg-blue-600 text-white py-3 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
+                  onClick={handleCheckout}
+                >
                   Place Order
                 </button>
               </div>
             </div>
           )}
         </div>
-        {cart.length === 0 ? (
-          <div></div>
-        ) : (
-          <div
-            style={{ flex: 1, padding: 20, backgroundColor: "#f1f1f1" }}
-            className="rounded-2xl">
-            <h2 className="text-base font-medium mb-2">Order Summary:</h2>
-             <div className="p-4 mb-4 ">
         
-      
-          <div className="grid grid-cols-2 gap-3 ">
-            {cart.map((item) => (
-              <div
-                key={item.id}
-                className="bg-white rounded-lg shadow-md  flex items-center justify-center gap-2 p-2 rounded-lg cursor-pointer transition "
-                >
-                <div style={{ maxWidth: "100%", padding: "10px" }}>
-                  <img
-                    src={`${IMAGE_BASE_URL}${item.images?.[0] || "missing.png"}`}
-                    alt="pic"
-                    style={{
-                      width: "100%",
-                      maxWidth: "100px",
-                      height: "auto",
-                      marginRight: "10px",
-                      borderRadius: "5px",
-                      objectFit: "cover",
-                    }}
-                  />
-                </div>
-                 <div>
-                    <p>{item.product_name}</p>
-                    <p>Quantity: {item.quantity}</p>
-                    <p>Price: €{(item.price * item.quantity).toFixed(2)}</p>
-                    {item.choices && (
-                      <p>
-                        Choices:{" "}
-                        {Object.entries(item.choices)
-                          .map(([key, value]) => `${key}: ${value}`)
-                          .join(", ")}
-                      </p>
-                    )}
-                  </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-            {/* <div className="md:grid grid-cols-3 gap-4">
-              {cart.map((item) => (
-                <div
-                  className="prod_single_card"
-                  key={item.variationKey}
-                  style={{ marginBottom: 15, display: "flex" }}>
-                  <img
-                    src="https://media.istockphoto.com/id/1442417585/photo/person-getting-a-piece-of-cheesy-pepperoni-pizza.jpg?s=2048x2048&w=is&k=20&c=5qfqYi5DEhhVjJ-DIYB4MxUq31EmkvyEnNgNLm5LVpY="
-                    alt="pic"
-                    style={{
-                      width: "30%",
-                      maxWidth: "100px",
-                      height: "auto",
-                      marginRight: "10px",
-                      borderRadius: "5px",
-                      objectFit: "cover",
-                    }}
-                  />
-                  <img
-                  src={`Uploads/products/${item.image_url || "missing.png"}`}
-                  alt={item.product_name}
-                  style={{
-                    width: 50,
-                    height: 50,
-                    marginRight: 10,
-                    borderRadius: 5,
-                  }}
-                />
-                  <div>
-                    <p>{item.product_name}</p>
-                    <p>Quantity: {item.quantity}</p>
-                    <p>Price: €{(item.price * item.quantity).toFixed(2)}</p>
-                    {item.choices && (
-                      <p>
-                        Choices:{" "}
-                        {Object.entries(item.choices)
-                          .map(([key, value]) => `${key}: ${value}`)
-                          .join(", ")}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div> */}
-            <div className="ckdetails">
-              <div>
-                <p>Subtotal: €{subTotal.toFixed(2)}</p>
-                <p>Delivery Fee: €{deliveryFee.toFixed(2)}</p>
-                {formData.use_points === 1 && loggedInUser && (
-                  <p>
-                    Points Discount: -€
-                    {(Number(loggedInUser?.user_points) || 0).toFixed(2)}
-                  </p>
-                )}
-                <h2>Total: €{totalPrice.toFixed(2)}</h2>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
