@@ -317,7 +317,6 @@ button.success_popup_close {
   border-radius: 30px;
   background: #bab1b1;
   color: #fff;
-  width: 50px;
   margin: 1rem auto;
   margin-left: 50%;
   transform: translateX(-50%);
@@ -392,17 +391,14 @@ button.success_popup_close {
   width: calc(100vw);
   z-index: 999;
   background: #fafafa;
-  padding: 0 1rem 0rem 1rem;
 }
 .footerNav ul {
   display: flex;
   list-style: none;
   background: #000;
-  border-radius: 500px;
   align-items: center;
   justify-content: space-around;
   padding: 0.75rem;
-  transform: translateY(-1rem);
 }
 .footerNav img {
   height: 26px;

@@ -226,9 +226,28 @@ function CategoryBlock({
         <div className="md:grid sm:gap-4 md:grid-cols-4">
           {products.map(renderProduct)}
         </div>
-        <button className="btnStyle3" onClick={() => onLoadMore(category.id)}>
-          
-          🔄
+        <button
+            className="btnStyle3 p-3 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            onClick={() => onLoadMore(category.id)}
+            aria-label="Load more"
+        >
+          <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="group-hover:rotate-180 transition-transform duration-500"
+          >
+            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+            <path d="M8 16H3v5" />
+            <path d="M21 8h-5V3" />
+          </svg>
         </button>
       </div>
 

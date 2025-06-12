@@ -37,50 +37,41 @@ export default function PromoSlider() {
         </div>
     );
   if (error) return <div>Error: {error.message}</div>;
-
-  return (
-      <div className="w-full relative">
+    return (
+    <div className="w-full relative">
         <div className="relative w-full h-[400px] md:h-[500px] bg-transparent">
-          <div className="absolute inset-0 overflow-hidden" style={{
-            clipPath: 'polygon(0% 0%, 100% 0%, 100% 85%, 50% 100%, 0% 85%)',
-            backgroundColor: 'transparent'
-          }}>
-            <Swiper
-                modules={[Autoplay]}
-                loop={true}
-                autoplay={{ delay: 3000, disableOnInteraction: false }}
-                spaceBetween={0}
-                slidesPerView={1}
-                className="h-full"
-            >
-              {promos.map((promo) => (
-                  <SwiperSlide key={promo.id}>
-                    <a href={promo.link} className="block w-full h-full">
-                      <div className="relative w-full h-full">
-                        {promo.image_web && (
-                            <Image
-                                src={`https://orange-wolf-342633.hostingersite.com/uploads/promo_images/${promo.image_web}`}
-                                alt={promo.title}
-                                fill
-                                className="object-cover"
-                                priority={true}
-                            />
-                        )}
-                      </div>
-                    </a>
-                  </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-
-          <div
-              className="absolute bottom-0 left-0 right-0 h-[20px] z-10"
-              style={{
-                clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 50% 70%, 0% 100%)',
-                backgroundColor: 'inherit'
-              }}
-          ></div>
+            <div className="absolute inset-0 overflow-hidden" style={{
+                clipPath: 'ellipse(100% 100% at 50% 0%)',
+                backgroundColor: 'transparent'
+            }}>
+                <Swiper
+                    modules={[Autoplay]}
+                    loop={true}
+                    autoplay={{ delay: 3000, disableOnInteraction: false }}
+                    spaceBetween={0}
+                    slidesPerView={1}
+                    className="h-full"
+                >
+                    {promos.map((promo) => (
+                        <SwiperSlide key={promo.id}>
+                            <a href={promo.link} className="block w-full h-full">
+                                <div className="relative w-full h-full">
+                                    {promo.image_web && (
+                                        <Image
+                                            src={`https://orange-wolf-342633.hostingersite.com/uploads/promo_images/${promo.image_web}`}
+                                            alt={promo.title}
+                                            fill
+                                            className="object-cover"
+                                            priority={true}
+                                        />
+                                    )}
+                                </div>
+                            </a>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
         </div>
-      </div>
-  );
-}
+    </div>
+        );
+    }

@@ -66,7 +66,7 @@ export default function CategoryMenu() {
   };
 
   const handleBack = () => {
-    setCurrentPath(currentPath.slice(0, -1));
+    setCurre400pxntPath(currentPath.slice(0, -1));
   };
 
   const currentCategories = getCurrentCategories();
