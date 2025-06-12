@@ -7,6 +7,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 
+const IMAGE_BASE_URL =
+  "https://orange-wolf-342633.hostingersite.com/uploads/products/";
 export default function CatSlider() {
   const [categories, setCategories] = useState([]);
 
@@ -60,7 +62,7 @@ export default function CatSlider() {
           <SwiperSlide key={cat.id}>
             <Link href={`/category/${cat.id}`} className="cat-slide-link py-3 px-1">
             {/* <button>
-              <img src={cat.image_web}/>
+              <img src={`${IMAGE_BASE_URL}${cat.image_web?.[0] || "missing.png"}`} />
             </button> */}
               <div className="cat-slide-box">
                 <h4>{cat.title}</h4>
