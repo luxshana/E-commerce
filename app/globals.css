@@ -58,6 +58,7 @@ header .menu-toggle {
   user-select: none;
   background: none;
   border: none;
+  filter: invert(1);
 }
 
 /* Side sliding menu */
@@ -120,6 +121,7 @@ header .menu-toggle {
 .cart-info img {
   width: 28px;
   height: 28px;
+  filter: invert(1);
 }
 .cart-info {
   position: relative;
@@ -166,7 +168,7 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fafafa;
+  background-color: #1e1c1c;
   color: rgb(0, 0, 0);
   padding: 10px 20px;
   position: fixed;
@@ -178,6 +180,7 @@ footer {
 .logo {
   font-weight: bold;
   font-size: 1.5rem;
+  filter: invert(1);
 }
 
 /* Hamburger menu button */
@@ -757,6 +760,7 @@ button.getPos {
 .icon-img {
   width: 24px;
   height: 24px;
+  filter: invert(1);
 }
 
 .overlay.ex {
@@ -1368,7 +1372,7 @@ button.prod_single_add {
 
 .swiper-slide img {
   display: block;
- 
+
   object-fit: cover;
 }
 
@@ -1395,4 +1399,3 @@ button.prod_single_add {
   font-weight: 600;
   margin: 0;
 }
-

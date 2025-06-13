@@ -52,10 +52,11 @@ export default function PromoSlider() {
               muted
               playsInline
               className="w-full h-full object-cover"
-              poster={`https://img.youtube.com/vi/VZU-EyQfUXQ/maxresdefault.jpg`}
+              preload="auto"
+              poster="https://maboutique.app/deliziosa//psboard/myfiles%2FKathedrale_Bourges_v2.jpg"
           >
             <source
-                src={`https://www.youtube.com/embed/VZU-EyQfUXQ?autoplay=1&loop=1&playlist=VZU-EyQfUXQ&controls=0&mute=1&modestbranding=1&rel=0`}
+                src="https://screen.designunic.com/uploads/48/Thegodfather%20Designunic%20Screen%20xs.mp4"
                 type="video/mp4"
             />
             Your browser does not support the video tag.

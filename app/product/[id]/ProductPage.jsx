@@ -306,7 +306,7 @@ export default function ProductPage({ initialProduct }) {
                 {/* Add to Cart Button */}
                 <button
                     onClick={handleAddToCart}
-                    className="flex-1 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white py-2 px-4 md:py-3 md:px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    className="flex-1 bg-gradient-to-r from-yellow-500 to-yellow-500 text-white py-2 px-4 md:py-3 md:px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                 >
         <span className="font-bold text-sm md:text-lg flex items-center justify-center gap-1 md:gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
