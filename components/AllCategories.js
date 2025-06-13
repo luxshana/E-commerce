@@ -123,7 +123,7 @@ export default function AllCategories() {
         </p>
       </div>
 
-      <div className="insiderx">
+      <div className="insiderx p-[1rem]">
         {categories.length === 0 && <p>No categories found.</p>}
 
         {categories.map((cat) => (

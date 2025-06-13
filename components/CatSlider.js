@@ -47,11 +47,11 @@ export default function CatSlider() {
         modules={[Autoplay]}
         loop={true}
         autoplay={{ delay: 2500, disableOnInteraction: false }}
-        slidesPerView={2}
+         slidesPerView={5}
         spaceBetween={15}
         breakpoints={{
           768: {
-            slidesPerView: 2,
+            slidesPerView: 5,
           },
           1024: {
             slidesPerView: 5,
@@ -60,13 +60,13 @@ export default function CatSlider() {
       >
         {categories.map((cat) => (
           <SwiperSlide key={cat.id}>
-            <Link href={`/category/${cat.id}`} className="cat-slide-link py-3 px-1">
-            {/* <button>
-              <img src={`${IMAGE_BASE_URL}${cat.image_web?.[0] || "missing.png"}`} />
-            </button> */}
-              <div className="cat-slide-box">
+            <Link href={`/category/${cat.id}`} className="cat-slide-link">
+            <button>
+             <img src="https://maboutique.app/godfather/images/menu/chicken.png" style={{ width: "50px", height: "50px", background: "#ffc52d", borderRadius: "50%", padding: 5 }}/>
+            </button>
+              {/* <div className="cat-slide-box">
                 <h4>{cat.title}</h4>
-              </div>
+              </div> */}
             </Link>
           </SwiperSlide>
         ))}

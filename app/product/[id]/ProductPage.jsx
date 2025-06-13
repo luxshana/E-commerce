@@ -115,24 +115,32 @@ export default function ProductPage({ initialProduct }) {
         {/* Product Images */}
         <div className="product-image flex flex-col items-center">
           {product.images?.length > 0 ? (
-            product.images.map((img, i) => (
-              <img
-                key={i}
-                src={`${IMAGE_BASE_URL}${img}`}
-                alt={`Image ${i}`}
-                className="w-full max-w-[300px] sm:max-w-[400px] rounded-lg shadow-lg mb-4 object-cover"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = `${IMAGE_BASE_URL}missing.png`;
-                }}
-              />
-            ))
+              product.images.map((img, i) => (
+                  <div
+                      key={i}
+                      className="w-full max-w-[300px] sm:max-w-[400px] rounded-lg shadow-lg mb-4 overflow-hidden" // Card container
+                  >
+                    <img
+                        src={`${IMAGE_BASE_URL}${img}`}
+                        alt={`Image ${i}`}
+                        className={`w-full h-full object-cover ${
+                            i === 0 ? "animate-[spin_120s_linear_infinite] hover:pause" : ""
+                        }`}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = `${IMAGE_BASE_URL}missing.png`;
+                        }}
+                    />
+                  </div>
+              ))
           ) : (
-            <img
-              src={`${IMAGE_BASE_URL}missing.png`}
-              alt="Missing"
-              className="w-24 h-24 rounded-lg shadow-lg object-cover"
-            />
+              <div className="w-24 h-24 rounded-lg shadow-lg overflow-hidden">
+                <img
+                    src={`${IMAGE_BASE_URL}missing.png`}
+                    alt="Missing"
+                    className="w-full h-full object-cover animate-[spin_20s_linear_infinite] hover:pause"
+                />
+              </div>
           )}
         </div>
 
@@ -265,31 +273,103 @@ export default function ProductPage({ initialProduct }) {
           ))}
 
           {/* Quantity and Add to Cart */}
-             <div className="prod_add_options">
-            <div className="prod_qts_control">
-              <button onClick={decrement} style={{ marginRight: 10 }}>
-                -
-              </button>
-              <span>{quantity}</span>
-              <button onClick={increment} style={{ marginLeft: 10 }}>
-                +
-              </button>
-            </div>
-            <div className="prod_add_to_cart_single">
-              <button onClick={handleAddToCart} className="">
-                Add to Cart
-              </button>
+          <div className="fixed bottom-10 left-0 right-0 bg-white border-t border-gray-200 shadow-lg py-3 px-4 z-10 md:py-4 md:px-6">
+            <div className="container mx-auto max-w-7xl">
+              <div className="flex items-center justify-between gap-3 md:gap-4">
+                {/* Quantity Selector */}
+                <div className="flex items-center border border-gray-200 rounded-full overflow-hidden shadow-sm bg-white">
+                  <button
+                      onClick={decrement}
+                      className="px-3 py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 text-base md:text-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 md:px-4 md:py-3"
+                      aria-label="Decrease quantity"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+                    </svg>
+                  </button>
+
+                  <span className="px-3 py-1 text-base md:text-lg font-semibold text-gray-800 min-w-[30px] md:min-w-[40px] text-center">
+          {quantity}
+        </span>
+
+                  <button
+                      onClick={increment}
+                      className="px-3 py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 text-base md:text-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 md:px-4 md:py-3"
+                      aria-label="Increase quantity"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Add to Cart Button */}
+                <button
+                    onClick={handleAddToCart}
+                    className="flex-1 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white py-2 px-4 md:py-3 md:px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                >
+        <span className="font-bold text-sm md:text-lg flex items-center justify-center gap-1 md:gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <span className="hidden xs:inline">Add to Cart</span> - €{calculateTotalPrice}
+        </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {showPopup && (
-        <SuccessPopup
-          productName={product.product.product_name}
-          choices={{ ...selectedOptions, size: selectedSize, drink: selectedDrink }}
-          onClose={() => setShowPopup(false)}
-        />
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 animate-[slideUp_0.3s_ease-out] mx-2 sm:mx-0">
+              <div className="flex items-center justify-center mb-4">
+                <div className="bg-green-100 p-2 sm:p-3 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 sm:h-8 sm:w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+              </div>
+
+              <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-2">
+                Added to Cart!
+              </h3>
+
+              <p className="text-sm sm:text-base text-gray-600 text-center mb-4 sm:mb-6">
+                {product.product.product_name} × {quantity}
+              </p>
+
+              <div className="max-h-[40vh] overflow-y-auto mb-4 sm:mb-6">
+                {Object.entries({...selectedOptions, size: selectedSize, drink: selectedDrink})
+                    .filter(([_, value]) => value)
+                    .map(([key, value]) => (
+                        <div key={key} className="flex justify-between py-2 border-b border-gray-100 last:border-0 text-sm sm:text-base">
+                          <span className="text-gray-600 capitalize">{key}:</span>
+                          <span className="font-medium">{value}</span>
+                        </div>
+                    ))}
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+                <button
+                    onClick={() => setShowPopup(false)}
+                    className="flex-1 py-2 px-4 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors text-sm sm:text-base"
+                >
+                  Continue Shopping
+                </button>
+                <button
+                    onClick={() => {
+                      setShowPopup(false);
+                      router.push('/cart');
+                    }}
+                    className="flex-1 py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base"
+                >
+                  View Cart
+                </button>
+              </div>
+            </div>
+          </div>
       )}
     </div>
   );

@@ -6,7 +6,7 @@ import CatSlider from "../components/CatSlider";
 export default function Home() {
   return (
     <>
-      <div style={{ padding: "1rem" }}>
+      <div>
         <Promos />
         <CatSlider />
 

@@ -39,22 +39,27 @@ export default function PromoSlider() {
   if (error) return <div>Error: {error.message}</div>;
   return (
     <div className="w-full relative">
-      <div className="relative w-full h-[400px] md:h-[500px] bg-transparent">
+      <div className="relative w-full h-[200px] md:h-[500px] bg-transparent">
         <div
           className="absolute inset-0 overflow-hidden"
           style={{
             clipPath: "ellipse(100% 100% at 50% 0%)",
             backgroundColor: "transparent",
           }}>
-          <iframe
-            
-            className="w-full h-full"
-            src="https://www.youtube.com/embed/VZU-EyQfUXQ?si=g7xO5KZp3IVEbQX7"
-            title="YouTube video"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
+          <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+              poster={`https://img.youtube.com/vi/VZU-EyQfUXQ/maxresdefault.jpg`}
+          >
+            <source
+                src={`https://www.youtube.com/embed/VZU-EyQfUXQ?autoplay=1&loop=1&playlist=VZU-EyQfUXQ&controls=0&mute=1&modestbranding=1&rel=0`}
+                type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
     </div>

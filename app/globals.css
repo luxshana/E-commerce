@@ -479,9 +479,7 @@ select {
 .prod_add_to_cart_single button {
   background: var(--clr_two);
 }
-.cat-slider-wrapper .swiper-slide {
-  background: var(--clr_two);
-}
+
 .spl_cat_list .cat_menu_list_holder {
   background: rgba(0, 0, 0, 0.1) !important;
   border-radius: 8px;
@@ -1370,8 +1368,7 @@ button.prod_single_add {
 
 .swiper-slide img {
   display: block;
-  width: 100%;
-  height: 100%;
+ 
   object-fit: cover;
 }
 
@@ -1380,7 +1377,7 @@ button.prod_single_add {
   position: sticky;
 }
 .cat-slider-wrapper .swiper-slide {
-  border-radius: 500px;
+  border-radius: "50%";
   padding: 0;
   margin: 0;
 }
