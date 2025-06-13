@@ -38,12 +38,12 @@ export default function PromoSlider() {
     );
   if (error) return <div>Error: {error.message}</div>;
   return (
-    <div className="w-full relative">
+    <div className=" w-full relative ">
       <div className="relative w-full h-[200px] md:h-[500px] bg-transparent">
         <div
           className="absolute inset-0 overflow-hidden"
           style={{
-            clipPath: "ellipse(100% 100% at 50% 0%)",
+            clipPath: "ellipse(100% 80% at 50% 0%)",
             backgroundColor: "transparent",
           }}>
           <video

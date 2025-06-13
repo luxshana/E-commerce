@@ -118,6 +118,7 @@ header .menu-toggle {
   background: white;
   clip-path: ellipse(60% 100% at 50% 100%);
 } */
+ 
 .cart-info img {
   width: 28px;
   height: 28px;
@@ -170,11 +171,11 @@ footer {
   align-items: center;
   background-color: #1e1c1c;
   color: rgb(0, 0, 0);
-  padding: 10px 20px;
+  padding: 1rem;
   position: fixed;
   width: 100%;
   top: 0;
-  z-index: 1000;
+  z-index: 1010;
 }
 
 .logo {
@@ -380,6 +381,9 @@ button.success_popup_close {
 }
 .go_checkout .btnStyle1 {
   background: var(--clr_two);
+}
+.back-button{
+filter: invert(1);
 }
 .header_btns {
   display: flex;
