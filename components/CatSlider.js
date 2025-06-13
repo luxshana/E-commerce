@@ -47,7 +47,7 @@ export default function CatSlider() {
         modules={[Autoplay]}
         loop={true}
         autoplay={{ delay: 2500, disableOnInteraction: false }}
-         slidesPerView={5}
+         slidesPerView={4}
         spaceBetween={15}
         breakpoints={{
           768: {
