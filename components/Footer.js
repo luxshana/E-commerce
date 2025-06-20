@@ -7,9 +7,22 @@ const Footer = () => (
     <div className="footerNav">
       <ul>
         <li>
-          <Link href="/shopcard">
-            <img src="/mycard.png" alt="My Card" />
-          </Link>
+           <button
+            className="menu-toggle"
+            // onClick={toggleMenu}
+            // aria-label={menuOpen ? "Close menu" : "Open menu"}
+          >
+            <img
+              src="https://maboutique.app/godfather/images/foodMenu.png"
+              alt="My Card"
+            />
+          </button>
+          {/* <Link href="/shopcard">
+            <img
+              src="https://maboutique.app/godfather/images/foodMenu.png"
+              alt="My Card"
+            />
+          </Link> */}
         </li>
         <li>
           <Link href="/myfav">
@@ -18,7 +31,10 @@ const Footer = () => (
         </li>
         <li>
           <Link href="/">
-            <img src="/home.png" alt="Home" />
+            <img
+              src="https://maboutique.app/godfather/images/capGodFather.svg"
+              alt="Home"
+            />
           </Link>
         </li>
         <li>

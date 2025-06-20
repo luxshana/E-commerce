@@ -123,9 +123,7 @@ export default function ProductPage({ initialProduct }) {
                     <img
                         src={`${IMAGE_BASE_URL}${img}`}
                         alt={`Image ${i}`}
-                        className={`w-full h-full object-cover ${
-                            i === 0 ? "animate-[spin_120s_linear_infinite] hover:pause" : ""
-                        }`}
+                        className={`w-full h-full object-cover `}
                         onError={(e) => {
                           e.target.onerror = null;
                           e.target.src = `${IMAGE_BASE_URL}missing.png`;
@@ -153,7 +151,7 @@ export default function ProductPage({ initialProduct }) {
           <p className="text-lg sm:text-xl font-semibold text-gray-800">
             Base Price: €{product.product.price}
           </p>
-          <p className="text-xl sm:text-2xl font-bold text-blue-600">
+          <p className="text-xl sm:text-2xl font-bold text-yellow-400">
             Total: €{calculateTotalPrice} ({quantity} x €{product.product.price})
           </p>
 
@@ -166,8 +164,8 @@ export default function ProductPage({ initialProduct }) {
                   key={size.id}
                   className={`flex flex-col items-center p-3 rounded-lg cursor-pointer transition-all duration-200 ${
                     selectedSize === size.name
-                      ? "bg-blue-100 border-2 border-blue-500"
-                      : "bg-white border border-gray-200 hover:bg-gray-100"
+                      ? "bg-gray-300 border-2 border-gray-300"
+                      : "bg-white border border-gray-200 hover:bg-gray-400"
                   }`}
                   onClick={() => setSelectedSize(size.name)}
                 >
@@ -196,8 +194,8 @@ export default function ProductPage({ initialProduct }) {
                   key={drink.id}
                   className={`flex flex-col items-center p-3 rounded-lg cursor-pointer transition-all duration-200 ${
                     selectedDrink === drink.name
-                      ? "bg-blue-100 border-2 border-blue-500"
-                      : "bg-white border border-gray-200 hover:bg-gray-100"
+                      ? "bg-gray-300 border-2 border-gray-300"
+                      : "bg-white border hover:bg-gray-400"
                   }`}
                   onClick={() => setSelectedDrink(drink.name)}
                 >
@@ -273,7 +271,7 @@ export default function ProductPage({ initialProduct }) {
           ))}
 
           {/* Quantity and Add to Cart */}
-          <div className="fixed bottom-10 left-0 right-0 bg-white border-t border-gray-200 shadow-lg py-3 px-4 z-10 md:py-4 md:px-6">
+          <div className="fixed bottom-12 left-0 right-0 bg-white border-t border-gray-200 shadow-lg py-4 rounded-t-2xl px-4 z-10 md:py-4 md:px-6">
             <div className="container mx-auto max-w-7xl">
               <div className="flex items-center justify-between gap-3 md:gap-4">
                 {/* Quantity Selector */}

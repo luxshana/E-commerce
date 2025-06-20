@@ -19,6 +19,8 @@ export default function AllCategories() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
+
+   
   // Build nested category tree
   const buildCategoryTree = (flatCategories) => {
     const map = {};
@@ -156,53 +158,51 @@ function CategoryBlock({
   onAddToCart,
   subProducts,
 }) {
-  const renderProduct = (product) => (
-    <div
-      key={product.product_id}
-      className="prod_single_card mb-2"
-      style={{ background: "#f9f9f9" }}
-    >
-      <div className="prod_single_img">
-        <Image
-          src={`${IMAGE_BASE_URL}${product.image_web?.[0] || "missing.png"}`}
-          alt={product.product_name}
-          width={100}
-          height={100}
-          style={{ objectFit: "cover" }}
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = `${IMAGE_BASE_URL}missing.png`;
-          }}
-        />
-      </div>
-      <div className="prod_single_info">
-        <h5 style={{ fontSize: "1em", margin: "5px 0" }}>
-          <Link
-            href={`/product/${product.product_id}`}
-            style={{ color: "#333", textDecoration: "none" }}
-          >
-            {product.product_name}
-          </Link>
-        </h5>
-        <p style={{ fontSize: "0.9em", color: "#666" }}>
-          {product.description || "No description available"}
-        </p>
-        <p style={{ fontSize: "0.9em", fontWeight: "bold" }}>
-          €{parseFloat(product.price).toFixed(2)}
-        </p>
-      </div>
-      {(!product.choices || product.choices.length === 0) && (
-        <button
-          className="prod_single_add"
-          onClick={() => onAddToCart(product)}
-          aria-label={`Add ${product.product_name} to cart`}
-        >
-          +
-        </button>
-      )}
+ const renderProduct = (product) => (
+  <div
+    key={product.product_id}
+    className="prod_single_card mb-4 bg-gray-50 rounded-lg shadow-sm p-4 flex flex-col gap-3 hover:shadow-md transition-shadow"
+  >
+    <div className="prod_single_img">
+      <Image
+        src={`${IMAGE_BASE_URL}${product.image_web?.[0] || "missing.png"}`}
+        alt={product.product_name}
+        width={50}
+        height={50}
+        className="w-full h-32 object-cover rounded-md"
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = `${IMAGE_BASE_URL}missing.png`;
+        }}
+      />
     </div>
-   
-  );
+    <div className="prod_single_info flex-1">
+      <h5 className="text-base font-medium mb-2">
+        <Link
+          href={`/product/${product.product_id}`}
+          className="text-gray-800 no-underline hover:text-blue-600 transition-colors"
+        >
+          {product.product_name}
+        </Link>
+      </h5>
+      <p className="text-sm text-gray-600 mb-2">
+        {product.description || "No description available"}
+      </p>
+      <p className="text-sm font-bold text-gray-900">
+        €{parseFloat(product.price).toFixed(2)}
+      </p>
+    </div>
+    {(!product.choices || product.choices.length === 0) && (
+      <button
+        className="prod_single_add bg-blue-500 text-white font-bold text-lg w-10 h-10 rounded-full hover:bg-blue-600 transition-colors flex items-center justify-center"
+        onClick={() => onAddToCart(product)}
+        aria-label={`Add ${product.product_name} to cart`}
+      >
+        +
+      </button>
+    )}
+  </div>
+);
 
   return (
     <>

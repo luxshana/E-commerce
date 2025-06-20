@@ -32,8 +32,18 @@ export default function Header({ loggedInUser, onLogout }) {
   return (
     <>
       <header className="header">
+        <div className="flex justify-center items-center">
+        
         {/* Conditionally render logo or back button based on route */}
         {pathname === "/" ? (
+          <>
+           <button
+            className="menu-toggle md:hidden pr-2 text-2xl"
+            onClick={toggleMenu}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+          >
+            ☰
+          </button>
           <Link href="/">
             <div className="logo">
               <Image
@@ -44,26 +54,40 @@ export default function Header({ loggedInUser, onLogout }) {
               />{" "}
             </div>
           </Link>
+          </>
         ) : (
-          <button
-            onClick={handleBack}
-            className="back-button"
-            aria-label="Go back to previous page"
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              padding: "10px",
-              fontSize: "16px",
-            }}
-          >
-            ← Back
-          </button>
-        )}
-        <div className="header_btns">
-          <div className="simpleSearch">
-            <LiveSearch />
+          <div className="flex gap-1">
+        <button
+  onClick={handleBack}
+  className="back-button bg-white rounded-full px-1 text-lg font-medium text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-colors duration-200"
+  aria-label="Go back to previous page"
+>
+  ←
+</button>
+         <Link href="/">
+            <div className="logo">
+              <Image
+                src="/logo.png"
+                alt="Logo"
+                width={100} // specify the width of the image
+                height={40} // specify the height of the image
+              />{" "}
+            </div>
+          </Link>
           </div>
+        )}
+        </div>
+        <div className="header_btns">
+          
+          {/* <div className="simpleSearch">
+            <LiveSearch />
+          </div> */}
+           <Link href="tel:0760774934">
+            <div className="cart-info" aria-label="Cart summary">
+              <img src="https://maboutique.app/godfather/images/callme.png" alt="Cart" width={40} height={40} />
+              </div>
+            
+          </Link>
           <Link href="/cart">
             <div className="cart-info" aria-label="Cart summary">
               <Image src="/basket.png" alt="Cart" width={40} height={40} />
@@ -73,13 +97,7 @@ export default function Header({ loggedInUser, onLogout }) {
             </div>
           </Link>
 
-          <button
-            className="menu-toggle"
-            onClick={toggleMenu}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-          >
-            ☰
-          </button>
+      
         </div>
       </header>
 

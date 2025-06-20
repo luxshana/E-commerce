@@ -163,6 +163,9 @@ footer {
   .menu {
     width: 200px;
   }
+  .menu-toggle {
+    display: block; /* Visible on mobile */
+  }
 }
 /* Header styling */
 .header {
@@ -186,6 +189,7 @@ footer {
 
 /* Hamburger menu button */
 .menu-toggle {
+  /* display: none; */
   background: none;
   border: none;
   font-size: 1.8rem;
@@ -200,7 +204,7 @@ footer {
   left: -75vw; /* Hidden by default */
   width: 75vw;
   height: 100%;
-  background-color: var(--clr_three);
+  background-color: var(--clr_one);
   color: white;
   padding: 60px 20px 20px; /* padding-top accounts for fixed header */
   transition: left 0.3s ease;
@@ -382,9 +386,7 @@ button.success_popup_close {
 .go_checkout .btnStyle1 {
   background: var(--clr_two);
 }
-.back-button{
-filter: invert(1);
-}
+/*  */
 .header_btns {
   display: flex;
   align-items: center;
@@ -398,6 +400,7 @@ filter: invert(1);
   width: calc(100vw);
   z-index: 999;
   background: #fafafa;
+  filter: invert(1);
 }
 .footerNav ul {
   display: flex;
