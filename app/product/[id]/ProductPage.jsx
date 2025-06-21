@@ -156,7 +156,7 @@ export default function ProductPage({ initialProduct }) {
           </p>
 
          
-          <div className="p-4 bg-white rounded-lg shadow-md">
+          <div className="p-4 bg-white rounded-lg shadow-md border border-dashed border-black">
             <div className="text-base sm:text-lg font-medium mb-3">Size:</div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {sizes.map((size) => (
@@ -164,8 +164,8 @@ export default function ProductPage({ initialProduct }) {
                   key={size.id}
                   className={`flex flex-col items-center p-3 rounded-lg cursor-pointer transition-all duration-200 ${
                     selectedSize === size.name
-                      ? "bg-gray-300 border-2 border-gray-300"
-                      : "bg-white border border-gray-200 hover:bg-gray-400"
+                      ? "bg-yellow-400 border-2 border-yellow-400"
+                      : "bg-white border border-gray-200 hover:bg-yellow-400"
                   }`}
                   onClick={() => setSelectedSize(size.name)}
                 >
@@ -186,7 +186,7 @@ export default function ProductPage({ initialProduct }) {
           </div>
 
           
-          <div className="p-4 bg-white rounded-lg shadow-md">
+          <div className="p-4 bg-white rounded-lg shadow-md border border-dashed border-red-600">
             <div className="text-base sm:text-lg font-medium mb-3">Drinks:</div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
               {Drinks.map((drink) => (
@@ -194,8 +194,8 @@ export default function ProductPage({ initialProduct }) {
                   key={drink.id}
                   className={`flex flex-col items-center p-3 rounded-lg cursor-pointer transition-all duration-200 ${
                     selectedDrink === drink.name
-                      ? "bg-gray-300 border-2 border-gray-300"
-                      : "bg-white border hover:bg-gray-400"
+                      ? "bg-yellow-400 border-2 border-yellow-400"
+                      : "bg-white border hover:bg-yellow-400"
                   }`}
                   onClick={() => setSelectedDrink(drink.name)}
                 >
