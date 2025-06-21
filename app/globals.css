@@ -172,6 +172,9 @@ button.bkme img {
   filter: invert(1);
   width: 32px;
 }
+.Im{
+  vertical-align: middle;
+}
 
 /* Header styling */
 .header {
@@ -360,27 +363,26 @@ button.success_popup_close {
   margin-top: 1rem;
 }
 .btnStyle1 {
+  width: 100%;
   border: 0;
   padding: 1rem;
   border-radius: 3px;
-  background: #000;
+  background: #ffc52d;
   color: #fff;
   margin: 1rem 0;
-  width: 60%;
+  
 }
 .go_checkout a {
   width: 100%;
 }
 .go_checkout {
-  display: flex;
-  flex-direction: row;
   align-items: center;
   align-content: center;
   position: fixed;
   z-index: 999;
   bottom: 0;
   padding: 0.25rem 1rem;
-  padding-bottom: 4.5rem;
+  padding-bottom: 3.5rem;
   width: 100%;
   background: #ffffff;
   left: 0;

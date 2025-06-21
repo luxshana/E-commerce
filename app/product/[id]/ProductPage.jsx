@@ -83,18 +83,24 @@ export default function ProductPage({ initialProduct }) {
     });
     if (selectedSize) {
       const size = sizes.find((s) => s.name === selectedSize);
-      if (size?.price) optionsTotal += parseFloat(size.price.replace("€", "")) || 0;
+      if (size?.price)
+        optionsTotal += parseFloat(size.price.replace("€", "")) || 0;
     }
     if (selectedDrink) {
       const drink = Drinks.find((d) => d.name === selectedDrink);
-      if (drink?.price) optionsTotal += parseFloat(drink.price.replace("€", "")) || 0;
+      if (drink?.price)
+        optionsTotal += parseFloat(drink.price.replace("€", "")) || 0;
     }
     return ((basePrice + optionsTotal) * quantity).toFixed(2);
   }, [product, selectedOptions, quantity, selectedSize, selectedDrink]);
 
   const handleAddToCart = () => {
     if (!product?.product) return;
-    addToCart(product, quantity, { ...selectedOptions, size: selectedSize, drink: selectedDrink });
+    addToCart(product, quantity, {
+      ...selectedOptions,
+      size: selectedSize,
+      drink: selectedDrink,
+    });
     setShowPopup(true);
   };
 
@@ -115,30 +121,30 @@ export default function ProductPage({ initialProduct }) {
         {/* Product Images */}
         <div className="product-image flex flex-col items-center">
           {product.images?.length > 0 ? (
-              product.images.map((img, i) => (
-                  <div
-                      key={i}
-                      className="w-full max-w-[300px] sm:max-w-[400px] rounded-lg shadow-lg mb-4 overflow-hidden" // Card container
-                  >
-                    <img
-                        src={`${IMAGE_BASE_URL}${img}`}
-                        alt={`Image ${i}`}
-                        className={`w-full h-full object-cover `}
-                        onError={(e) => {
-                          e.target.onerror = null;
-                          e.target.src = `${IMAGE_BASE_URL}missing.png`;
-                        }}
-                    />
-                  </div>
-              ))
-          ) : (
-              <div className="w-24 h-24 rounded-lg shadow-lg overflow-hidden">
+            product.images.map((img, i) => (
+              <div
+                key={i}
+                className="w-full max-w-[300px] sm:max-w-[400px] rounded-lg shadow-lg mb-4 overflow-hidden" // Card container
+              >
                 <img
-                    src={`${IMAGE_BASE_URL}missing.png`}
-                    alt="Missing"
-                    className="w-full h-full object-cover animate-[spin_20s_linear_infinite] hover:pause"
+                  src={`${IMAGE_BASE_URL}${img}`}
+                  alt={`Image ${i}`}
+                  className={`w-full h-full object-cover `}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = `${IMAGE_BASE_URL}missing.png`;
+                  }}
                 />
               </div>
+            ))
+          ) : (
+            <div className="w-24 h-24 rounded-lg shadow-lg overflow-hidden">
+              <img
+                src={`${IMAGE_BASE_URL}missing.png`}
+                alt="Missing"
+                className="w-full h-full object-cover animate-[spin_20s_linear_infinite] hover:pause"
+              />
+            </div>
           )}
         </div>
 
@@ -147,15 +153,17 @@ export default function ProductPage({ initialProduct }) {
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
             {product.product.product_name}
           </h1>
-          <p className="text-gray-600 text-base sm:text-lg">{product.product.description}</p>
+          <p className="text-gray-600 text-base sm:text-lg">
+            {product.product.description}
+          </p>
           <p className="text-lg sm:text-xl font-semibold text-gray-800">
             Base Price: €{product.product.price}
           </p>
           <p className="text-xl sm:text-2xl font-bold text-yellow-400">
-            Total: €{calculateTotalPrice} ({quantity} x €{product.product.price})
+            Total: €{calculateTotalPrice} ({quantity} x €{product.product.price}
+            )
           </p>
 
-         
           <div className="p-4 bg-white rounded-lg shadow-md border border-dashed border-black">
             <div className="text-base sm:text-lg font-medium mb-3">Size:</div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -167,16 +175,17 @@ export default function ProductPage({ initialProduct }) {
                       ? "bg-yellow-400 border-2 border-yellow-400"
                       : "bg-white border border-gray-200 hover:bg-yellow-400"
                   }`}
-                  onClick={() => setSelectedSize(size.name)}
-                >
-                 <img
+                  onClick={() => setSelectedSize(size.name)}>
+                  <img
                     src={`${IMAGE_BASE_URL}${
                       size.images?.[0] || "missing.png"
                     }`}
                     alt={size.name}
                     className="w-full max-w-[120px] h-auto rounded-lg object-cover mb-2"
                   />
-                  <div className="text-sm text-center font-medium">{size.name}</div>
+                  <div className="text-sm text-center font-medium">
+                    {size.name}
+                  </div>
                   {size.price && (
                     <div className="text-xs text-gray-500">{size.price}</div>
                   )}
@@ -185,7 +194,6 @@ export default function ProductPage({ initialProduct }) {
             </div>
           </div>
 
-          
           <div className="p-4 bg-white rounded-lg shadow-md border border-dashed border-red-600">
             <div className="text-base sm:text-lg font-medium mb-3">Drinks:</div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
@@ -197,8 +205,7 @@ export default function ProductPage({ initialProduct }) {
                       ? "bg-yellow-400 border-2 border-yellow-400"
                       : "bg-white border hover:bg-yellow-400"
                   }`}
-                  onClick={() => setSelectedDrink(drink.name)}
-                >
+                  onClick={() => setSelectedDrink(drink.name)}>
                   <img
                     src={`${IMAGE_BASE_URL}${
                       drink.images?.[0] || "missing.png"
@@ -207,7 +214,9 @@ export default function ProductPage({ initialProduct }) {
                     className="w-full max-w-[120px] h-auto rounded-lg object-cover mb-2"
                   />
 
-                  <div className="text-sm text-center font-medium">{drink.name}</div>
+                  <div className="text-sm text-center font-medium">
+                    {drink.name}
+                  </div>
                   {drink.price && (
                     <div className="text-xs text-gray-500">{drink.price}</div>
                   )}
@@ -234,8 +243,7 @@ export default function ProductPage({ initialProduct }) {
                           selected
                             ? "bg-blue-500 text-white border-blue-500"
                             : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
-                        }`}
-                      >
+                        }`}>
                         {choice.icons?.[i] && (
                           <img
                             src={choice.icons[i]}
@@ -256,10 +264,11 @@ export default function ProductPage({ initialProduct }) {
                 </div>
               ) : (
                 <select
-                  onChange={(e) => handleOptionChange(choice.id, e.target.value)}
+                  onChange={(e) =>
+                    handleOptionChange(choice.id, e.target.value)
+                  }
                   value={selectedOptions[choice.id]}
-                  className="w-full max-w-xs p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                >
+                  className="w-full max-w-xs p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
                   {choice.options.map((opt, i) => (
                     <option key={i} value={opt}>
                       {opt} (€{choice.prices[i]})
@@ -277,41 +286,69 @@ export default function ProductPage({ initialProduct }) {
                 {/* Quantity Selector */}
                 <div className="flex items-center border border-gray-200 rounded-full overflow-hidden shadow-sm bg-white">
                   <button
-                      onClick={decrement}
-                      className="px-3 py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 text-base md:text-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 md:px-4 md:py-3"
-                      aria-label="Decrease quantity"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+                    onClick={decrement}
+                    className="px-3 py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 text-base md:text-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 md:px-4 md:py-3"
+                    aria-label="Decrease quantity">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 md:h-5 md:w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M20 12H4"
+                      />
                     </svg>
                   </button>
 
                   <span className="px-3 py-1 text-base md:text-lg font-semibold text-gray-800 min-w-[30px] md:min-w-[40px] text-center">
-          {quantity}
-        </span>
+                    {quantity}
+                  </span>
 
                   <button
-                      onClick={increment}
-                      className="px-3 py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 text-base md:text-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 md:px-4 md:py-3"
-                      aria-label="Increase quantity"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    onClick={increment}
+                    className="px-3 py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 text-base md:text-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 md:px-4 md:py-3"
+                    aria-label="Increase quantity">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 md:h-5 md:w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 4v16m8-8H4"
+                      />
                     </svg>
                   </button>
                 </div>
 
                 {/* Add to Cart Button */}
                 <button
-                    onClick={handleAddToCart}
-                    className="flex-1 bg-gradient-to-r from-yellow-500 to-yellow-500 text-white py-2 px-4 md:py-3 md:px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-                >
-        <span className="font-bold text-sm md:text-lg flex items-center justify-center gap-1 md:gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-          <span className="hidden xs:inline">Add to Cart</span> - €{calculateTotalPrice}
-        </span>
+                  onClick={handleAddToCart}
+                  className="flex-1 bg-gradient-to-r from-yellow-500 to-yellow-500 text-white py-2 px-4 md:py-3 md:px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                  <span className="font-bold text-sm md:text-lg flex items-center justify-center gap-1 md:gap-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 md:h-6 md:w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                      />
+                    </svg>
+                    <span className="hidden xs:inline">Add to Cart</span> - €
+                    {calculateTotalPrice}
+                  </span>
                 </button>
               </div>
             </div>
@@ -320,54 +357,68 @@ export default function ProductPage({ initialProduct }) {
       </div>
 
       {showPopup && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 animate-[slideUp_0.3s_ease-out] mx-2 sm:mx-0">
-              <div className="flex items-center justify-center mb-4">
-                <div className="bg-green-100 p-2 sm:p-3 rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 sm:h-8 sm:w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-              </div>
-
-              <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-2">
-                Added to Cart!
-              </h3>
-
-              <p className="text-sm sm:text-base text-gray-600 text-center mb-4 sm:mb-6">
-                {product.product.product_name} × {quantity}
-              </p>
-
-              <div className="max-h-[40vh] overflow-y-auto mb-4 sm:mb-6">
-                {Object.entries({...selectedOptions, size: selectedSize, drink: selectedDrink})
-                    .filter(([_, value]) => value)
-                    .map(([key, value]) => (
-                        <div key={key} className="flex justify-between py-2 border-b border-gray-100 last:border-0 text-sm sm:text-base">
-                          <span className="text-gray-600 capitalize">{key}:</span>
-                          <span className="font-medium">{value}</span>
-                        </div>
-                    ))}
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-                <button
-                    onClick={() => setShowPopup(false)}
-                    className="flex-1 py-2 px-4 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors text-sm sm:text-base"
-                >
-                  Continue Shopping
-                </button>
-                <button
-                    onClick={() => {
-                      setShowPopup(false);
-                      router.push('/cart');
-                    }}
-                    className="flex-1 py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base"
-                >
-                  View Cart
-                </button>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 animate-[slideUp_0.3s_ease-out] mx-2 sm:mx-0">
+            <div className="flex items-center justify-center mb-4">
+              <div className="bg-green-100 p-2 sm:p-3 rounded-full">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 sm:h-8 sm:w-8 text-green-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
               </div>
             </div>
+
+            <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-2">
+              Added to Cart!
+            </h3>
+
+            <p className="text-sm sm:text-base text-gray-600 text-center mb-4 sm:mb-6">
+              {product.product.product_name} × {quantity}
+            </p>
+
+            <div className="max-h-[40vh] overflow-y-auto mb-4 sm:mb-6">
+              {Object.entries({
+                ...selectedOptions,
+                size: selectedSize,
+                drink: selectedDrink,
+              })
+                .filter(([_, value]) => value)
+                .map(([key, value]) => (
+                  <div
+                    key={key}
+                    className="flex justify-between py-2 border-b border-gray-100 last:border-0 text-sm sm:text-base">
+                    <span className="text-gray-600 capitalize">{key}:</span>
+                    <span className="font-medium">{value}</span>
+                  </div>
+                ))}
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+              <button
+                onClick={() => setShowPopup(false)}
+                className="flex-1 py-2 px-4 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors text-sm sm:text-base">
+                Continue Shopping
+              </button>
+              <button
+                onClick={() => {
+                  setShowPopup(false);
+                  router.push("/cart");
+                }}
+                className="flex-1 py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base">
+                View Cart
+              </button>
+            </div>
           </div>
+        </div>
       )}
     </div>
   );

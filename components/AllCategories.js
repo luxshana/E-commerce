@@ -6,21 +6,20 @@ import Image from "next/image";
 import { CartContext } from "./CartContext";
 import { fetchCategories, fetchProductsByCategory } from "../lib/api";
 import SuccessPopup from "./SuccessPopup";
-
+import Cart from "./Cart";
 const IMAGE_BASE_URL =
   "https://orange-wolf-342633.hostingersite.com/uploads/products/";
 const PRODUCTS_PER_PAGE = 5;
 
 export default function AllCategories() {
-  const { addToCart } = useContext(CartContext);
+  
+  const { addToCart ,totalPrice,totalItems} = useContext(CartContext);
   const [categories, setCategories] = useState([]);
   const [productsByCategory, setProductsByCategory] = useState({});
   const [showPopup, setShowPopup] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
-
-   
   // Build nested category tree
   const buildCategoryTree = (flatCategories) => {
     const map = {};
@@ -116,8 +115,7 @@ export default function AllCategories() {
     <div>
       <div
         className="main index text-center"
-        style={{ padding: "3rem 1rem 1rem" }}
-      >
+        style={{ padding: "3rem 1rem 1rem" }}>
         <h1>Nos catégories de plats</h1>
         <p className="long600">
           Découvrez vos catégories préférées et laissez-vous tenter par les
@@ -140,6 +138,26 @@ export default function AllCategories() {
           </div>
         ))}
       </div>
+      <div>
+     
+ <div className="group relative block m-4 h-[500px] rounded-lg shadow-lg bg-red-700">
+  <div className="flex flex-col h-full">
+    <div className="overflow-y-auto flex-1 p-4">
+      <Cart />
+    </div>
+    <div className="flex flex-col p-4 border-t border-red-600 bg-red-700">
+      <span className="text-sm text-yellow-500 text-bold">
+        {totalItems} Produits | Montant total: €{totalPrice.toFixed(2)}
+      </span>
+      <Link href="/checkout">
+          <button className="btnStyle1 w-full sm:w-auto">place an order</button>
+        </Link>
+      {/* <button>place an order</button> */}
+    </div>
+  </div>
+</div>
+
+</div>
 
       {showPopup && selectedProduct && (
         <SuccessPopup
@@ -158,91 +176,88 @@ function CategoryBlock({
   onAddToCart,
   subProducts,
 }) {
- const renderProduct = (product) => (
-  <div
-    key={product.product_id}
-    className="prod_single_card mb-4 bg-gray-50 rounded-lg shadow-sm p-4 flex flex-col gap-3 hover:shadow-md transition-shadow"
-  >
-    <div className="prod_single_img">
-      <Image
-        src={`${IMAGE_BASE_URL}${product.image_web?.[0] || "missing.png"}`}
-        alt={product.product_name}
-        width={50}
-        height={50}
-        className="w-full h-32 object-cover rounded-md"
-        onError={(e) => {
-          e.target.onerror = null;
-          e.target.src = `${IMAGE_BASE_URL}missing.png`;
-        }}
-      />
+  const renderProduct = (product) => (
+    <div
+      key={product.product_id}
+      className="prod_single_card mb-4 bg-gray-50 rounded-lg shadow-sm p-4 flex flex-col gap-3 hover:shadow-md transition-shadow">
+      <div className="prod_single_img">
+        <Image
+          src={`${IMAGE_BASE_URL}${product.image_web?.[0] || "missing.png"}`}
+          alt={product.product_name}
+          width={50}
+          height={50}
+          className="w-full h-32 object-cover rounded-md"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = `${IMAGE_BASE_URL}missing.png`;
+          }}
+        />
+      </div>
+      <div className="prod_single_info flex-1">
+        <h5 className="text-base font-medium mb-2">
+          <Link
+            href={`/product/${product.product_id}`}
+            className="text-gray-800 no-underline transition-colors">
+            {product.product_name}
+          </Link>
+        </h5>
+        <p className="text-sm text-gray-600 mb-2">
+          {product.description || "No description available"}
+        </p>
+        <p className="text-sm font-bold text-gray-900">
+          €{parseFloat(product.price).toFixed(2)}
+        </p>
+      </div>
+      {(!product.choices || product.choices.length === 0) && (
+        <button
+          className="prod_single_add  text-white font-bold text-lg w-10 h-10 rounded-full hover:bg-blue-600 transition-colors flex items-center justify-center"
+          onClick={() => onAddToCart(product)}
+          aria-label={`Add ${product.product_name} to cart`}>
+          +
+        </button>
+      )}
     </div>
-    <div className="prod_single_info flex-1">
-      <h5 className="text-base font-medium mb-2">
-        <Link
-          href={`/product/${product.product_id}`}
-          className="text-gray-800 no-underline transition-colors"
-        >
-          {product.product_name}
-        </Link>
-      </h5>
-      <p className="text-sm text-gray-600 mb-2">
-        {product.description || "No description available"}
-      </p>
-      <p className="text-sm font-bold text-gray-900">
-        €{parseFloat(product.price).toFixed(2)}
-      </p>
-    </div>
-    {(!product.choices || product.choices.length === 0) && (
-      <button
-        className="prod_single_add  text-white font-bold text-lg w-10 h-10 rounded-full hover:bg-blue-600 transition-colors flex items-center justify-center"
-        onClick={() => onAddToCart(product)}
-        aria-label={`Add ${product.product_name} to cart`}
-      >
-        +
-      </button>
-    )}
-  </div>
-);
+  );
 
   return (
     <>
-     <Link href={`/category/${category.id}`} className="group relative block overflow-hidden rounded-lg shadow-lg">
-      <div className="relative w-full h-48">
-        <Image
-          src={`${IMAGE_BASE_URL}${category.image_web}`}
-          alt={category.title}
-          fill
-          className="object-cover transition-opacity group-hover:opacity-90"
-        />
-        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 p-4">
-          <h3 className="text-white text-center text-lg font-semibold tracking-tight">
-            {category.title}
-          </h3>
+      <Link
+        href={`/category/${category.id}`}
+        className="group relative block overflow-hidden rounded-lg shadow-lg">
+        <div className="relative w-full h-48">
+          <Image
+            src={`${IMAGE_BASE_URL}${category.image_web}`}
+            alt={category.title}
+            fill
+            className="object-cover transition-opacity group-hover:opacity-90"
+          />
+          <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 p-4">
+            <h3 className="text-white text-center text-lg font-semibold tracking-tight">
+              {category.title}
+            </h3>
+          </div>
         </div>
-      </div>
-    </Link>
+      </Link>
 
       <div className="products mt-3" style={{ padding: "0 0.75rem 0.75rem" }}>
         <div className="md:grid sm:gap-4 md:grid-cols-4">
           {products.map(renderProduct)}
         </div>
         <button
-            className="btnStyle3 p-3 rounded-full  text-white  transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            onClick={() => onLoadMore(category.id)}
-            aria-label="Load more"
-        >
+          className="btnStyle3 p-3 rounded-full  text-white  transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          onClick={() => onLoadMore(category.id)}
+          aria-label="Load more">
           <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="group-hover:rotate-180 transition-transform duration-500"
-          >
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="group-hover:rotate-180 transition-transform duration-500">
             <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
             <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
             <path d="M8 16H3v5" />
@@ -258,13 +273,11 @@ function CategoryBlock({
             <div
               key={subcat.id}
               className="cat_prod_inSec"
-              style={{ background: "#f7f7f7" }}
-            >
+              style={{ background: "#f7f7f7" }}>
               <Link href={`/category/${subcat.id}`} className="catx">
                 <div
                   className="cat_imgHolder"
-                  style={{ transform: "scale(0.7)", marginBottom: "-1rem" }}
-                >
+                  style={{ transform: "scale(0.7)", marginBottom: "-1rem" }}>
                   <Image
                     src={`${IMAGE_BASE_URL}${
                       subcat.image_web || "missing.png"
@@ -289,15 +302,13 @@ function CategoryBlock({
 
               <div
                 className="products"
-                style={{ padding: "0 0.75rem 0.75rem" }}
-              >
+                style={{ padding: "0 0.75rem 0.75rem" }}>
                 <div style={{ display: "grid", gap: "10px" }}>
                   {(subProducts[subcat.id] || []).map(renderProduct)}
                 </div>
                 <button
                   className="btnStyle3"
-                  onClick={() => onLoadMore(subcat.id)}
-                >
+                  onClick={() => onLoadMore(subcat.id)}>
                   Load More
                 </button>
               </div>
@@ -305,6 +316,7 @@ function CategoryBlock({
           ))}
         </div>
       )}
+      
     </>
   );
 }

@@ -47,7 +47,7 @@ export default function Cart() {
             alt={item.name}
             className="w-full sm:w-24 h-auto rounded-lg object-cover"
           />
-          <div className="flex-1 text-center sm:text-left">
+          <div className="flex-1 text-left sm:text-left">
             <p className=" font-semibold  ">{item.name}</p>
             <div className="mt-2 space-y-1">
               {item.options &&
@@ -90,7 +90,7 @@ export default function Cart() {
       ))}
 
       {/* Checkout Details */}
-      <div className="ckdetails p-4 bg-white rounded-lg shadow-md">
+      {/* <div className="ckdetails p-4 bg-white rounded-lg shadow-md">
         <h3 className="text-lg font-semibold">
           Total: <span>€{totalPrice.toFixed(2)}</span>
         </h3>
@@ -100,7 +100,7 @@ export default function Cart() {
         <h3 className="text-lg font-semibold mt-2">
           Total ({totalItems} products): <span>€{totalPrice.toFixed(2)}</span>
         </h3>
-      </div>
+      </div> */}
     </div>
   );
 }
