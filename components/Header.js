@@ -59,11 +59,11 @@ export default function Header({ loggedInUser, onLogout }) {
           <div className="flex gap-1">
         <button
   onClick={handleBack}
-  className="back-button bg-white rounded-full px-1 text-lg font-medium text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-colors duration-200"
+  className="bkme flex items-center justify-center rounded-full px-1 font-bold text-lg text-gray-800"
   aria-label="Go back to previous page"
 >
-  ←
-</button>
+  <img src="https://maboutique.app/godfather/images/back.svg" />
+ </button>
          <Link href="/">
             <div className="logo">
               <Image

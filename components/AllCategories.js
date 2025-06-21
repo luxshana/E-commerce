@@ -180,7 +180,7 @@ function CategoryBlock({
       <h5 className="text-base font-medium mb-2">
         <Link
           href={`/product/${product.product_id}`}
-          className="text-gray-800 no-underline hover:text-blue-600 transition-colors"
+          className="text-gray-800 no-underline transition-colors"
         >
           {product.product_name}
         </Link>
@@ -194,7 +194,7 @@ function CategoryBlock({
     </div>
     {(!product.choices || product.choices.length === 0) && (
       <button
-        className="prod_single_add bg-blue-500 text-white font-bold text-lg w-10 h-10 rounded-full hover:bg-blue-600 transition-colors flex items-center justify-center"
+        className="prod_single_add  text-white font-bold text-lg w-10 h-10 rounded-full hover:bg-blue-600 transition-colors flex items-center justify-center"
         onClick={() => onAddToCart(product)}
         aria-label={`Add ${product.product_name} to cart`}
       >
@@ -227,7 +227,7 @@ function CategoryBlock({
           {products.map(renderProduct)}
         </div>
         <button
-            className="btnStyle3 p-3 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="btnStyle3 p-3 rounded-full  text-white  transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             onClick={() => onLoadMore(category.id)}
             aria-label="Load more"
         >

@@ -167,6 +167,12 @@ footer {
     display: block; /* Visible on mobile */
   }
 }
+
+button.bkme img {
+  filter: invert(1);
+  width: 32px;
+}
+
 /* Header styling */
 .header {
   display: flex;
@@ -174,7 +180,7 @@ footer {
   align-items: center;
   background-color: #1e1c1c;
   color: rgb(0, 0, 0);
-  padding: 1rem;
+  padding: 1.5rem;
   position: fixed;
   width: 100%;
   top: 0;
@@ -1193,11 +1199,11 @@ button.prod_single_add {
   right: 1rem;
   bottom: 1rem;
   border-radius: 500px;
-  width: 32px;
-  height: 32px;
-  border: 0;
-  background: #000 !important;
-  color: #fff;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #000000;
+  background: #ffffff !important;
+  color: #000000;
 }
 .OrderItems {
   list-style: none;
