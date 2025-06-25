@@ -6,6 +6,8 @@ import { useParams, useRouter } from "next/navigation";
 import { CartContext } from "../../../components/CartContext";
 import { fetchSingleProduct } from "../../../lib/api";
 import SuccessPopup from "../../../components/SuccessPopup";
+import Cart from "../../../components/Cart";
+import Link from "next/link";
 
 const IMAGE_BASE_URL =
   "https://orange-wolf-342633.hostingersite.com/uploads/products/";
@@ -13,7 +15,7 @@ const IMAGE_BASE_URL =
 export default function ProductPage({ initialProduct }) {
   const router = useRouter();
   const { id } = useParams();
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, totalPrice, totalItems } = useContext(CartContext);
   const [product, setProduct] = useState(initialProduct);
   const [quantity, setQuantity] = useState(1);
   const [selectedOptions, setSelectedOptions] = useState({});
@@ -117,7 +119,7 @@ export default function ProductPage({ initialProduct }) {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Product Images */}
         <div className="product-image flex flex-col items-center">
           {product.images?.length > 0 ? (
@@ -154,10 +156,11 @@ export default function ProductPage({ initialProduct }) {
             {product.product.product_name}
           </h1>
           <p className="text-gray-600 text-base sm:text-lg">
-            {product.product.description}
+            €{product.product.price}
+            
           </p>
           <p className="text-lg sm:text-xl font-semibold text-gray-800">
-            Base Price: €{product.product.price}
+           {product.product.description}
           </p>
           <p className="text-xl sm:text-2xl font-bold text-yellow-400">
             Total: €{calculateTotalPrice} ({quantity} x €{product.product.price}
@@ -354,6 +357,23 @@ export default function ProductPage({ initialProduct }) {
             </div>
           </div>
         </div>
+       <div className="group relative block m-4 h-[500px] w-[500px] rounded-lg shadow-lg bg-red-700">
+  <div className="flex flex-col h-full">
+    <div className="overflow-y-auto flex-1 p-4">
+      <Cart />
+    </div>
+    {totalItems > 0 && (
+      <div className="flex flex-col p-4 border-t border-red-600 bg-red-700">
+        <span className="text-sm text-yellow-500 text-bold">
+          {totalItems} Produits | Montant total: €{totalPrice.toFixed(2)}
+        </span>
+        <Link href="/checkout">
+          <button className="btnStyle1 w-full sm:w-auto">place an order</button>
+        </Link>
+      </div>
+    )}
+  </div>
+</div>
       </div>
 
       {showPopup && (

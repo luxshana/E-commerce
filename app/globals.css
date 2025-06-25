@@ -214,6 +214,7 @@ button.bkme img {
   width: 75vw;
   height: 100%;
   background-color: var(--clr_one);
+  backdrop-filter: blur(10px);
   color: white;
   padding: 60px 20px 20px; /* padding-top accounts for fixed header */
   transition: left 0.3s ease;
@@ -1067,9 +1068,9 @@ button.option-btn {
   width: 35px;
   height: 35px;
   border-radius: 500px;
-  border: 1px solid #000;
+  border: 1px solid #fdfdfd;
   background: none;
-  color: #000;
+  color: #fefdfd;
 }
 
 .addtocart button.submit {
@@ -1173,10 +1174,8 @@ button.option-btn {
   gap: 15px;
   flex-direction: row;
   align-items: flex-start;
-  background: #ffffff;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
   height: 100%;
-  background: #f7f7f7;
   border-radius: 10px;
   padding: 1rem;
   position: relative;

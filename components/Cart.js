@@ -12,36 +12,15 @@ export default function Cart() {
     useContext(CartContext);
 
   if (cart.length === 0) {
-    return (
-      <div>
-        <div>
-          <div
-            style={{
-              marginTop: "20px",
-              fontSize: "18px",
-              color: "rgb(51, 51, 51)",
-              padding: "20px",
-              border: "1px solid rgb(221, 221, 221)",
-              borderRadius: "8px",
-              textAlign: "center",
-            }}>
-            Your cart is empty
-            <div className="secondary-buttons">
-              <Link href="/categories">Nos catégories</Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    return <div className="text-white text-center text-bold f">Your cart is empty</div>;
   }
 
   return (
     <div className="prod_single_card_holder p-6 m-4 max-w-5xl mx-auto">
-      {/* Cart Items */}
       {cart.map((item, index) => (
         <div
           key={index}
-          className="prod_single_card  flex flex-col sm:flex-row items-center justify-between p-4 mb-4 bg-white rounded-lg shadow-md gap-4">
+          className="prod_single_card  flex flex-col sm:flex-row items-center justify-between p-4 mb-4 text-white bg-red-600 rounded-lg shadow-md gap-4">
           <img
             src={`${IMAGE_BASE_URL}${item.images?.[0] || "missing.png"}`}
             alt={item.name}
@@ -70,7 +49,7 @@ export default function Cart() {
             </button>
             <div className="prod_qts_control md:flex  grid grid-col items-center gap-2">
               <button
-                className="bg-gray-200 w-10 h-10 rounded flex items-center justify-center hover:bg-gray-300 transition text-lg"
+                className="bg-gray-200 w-10 h-10 rounded flex items-center justify-center text-lg"
                 onClick={() => decrement(index)}
                 aria-label={`Decrease quantity of ${item.name}`}>
                 −
@@ -79,7 +58,7 @@ export default function Cart() {
                 {item.quantity}
               </span>
               <button
-                className="bg-gray-200 w-10 h-10 rounded flex items-center justify-center hover:bg-gray-300 transition text-lg"
+                className="bg-gray-200 w-10 h-10 rounded flex items-center justify-center text-lg"
                 onClick={() => increment(index)}
                 aria-label={`Increase quantity of ${item.name}`}>
                 +

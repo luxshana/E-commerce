@@ -140,20 +140,21 @@ export default function AllCategories() {
       </div>
       <div>
      
- <div className="group relative block m-4 h-[500px] rounded-lg shadow-lg bg-red-700">
+<div className="group relative block m-4 h-[500px] rounded-lg shadow-lg bg-red-700">
   <div className="flex flex-col h-full">
-    <div className="overflow-y-auto flex-1 p-4">
+    <div className="overflow-y-auto flex-1 p-4" >
       <Cart />
     </div>
-    <div className="flex flex-col p-4 border-t border-red-600 bg-red-700">
-      <span className="text-sm text-yellow-500 text-bold">
-        {totalItems} Produits | Montant total: €{totalPrice.toFixed(2)}
-      </span>
-      <Link href="/checkout">
+    {totalItems > 0 && (
+      <div className="flex flex-col p-4 border-t border-red-600 bg-red-700">
+        <span className="text-sm text-yellow-500 text-bold">
+          {totalItems} Produits | Montant total: €{totalPrice.toFixed(2)}
+        </span>
+        <Link href="/checkout">
           <button className="btnStyle1 w-full sm:w-auto">place an order</button>
         </Link>
-      {/* <button>place an order</button> */}
-    </div>
+      </div>
+    )}
   </div>
 </div>
 
