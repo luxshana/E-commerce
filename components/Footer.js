@@ -34,7 +34,7 @@ export default function Footer() {
           </Link> */}
             </li>
             <li>
-              <Link href="/myfav">
+              <Link href="https://www.google.com/search?hl=en-LK&gl=lk&q=The+Godfather+93,+25+Ave+Marcel+Cachin,+93120+La+Courneuve,+France&ludocid=13094069777680323800&lsig=AB86z5Wu3ANz2IcHxTESSkrcBNBC#lrd=0x47e66df6d600cb49:0xb5b77b1662d054d8,3">
                 <img src="/star.png" alt="Favorites" />
               </Link>
             </li>
