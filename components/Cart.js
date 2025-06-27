@@ -16,11 +16,11 @@ export default function Cart() {
   }
 
   return (
-    <div className="prod_single_card_holder p-6 m-4 max-w-5xl mx-auto">
+    <div className="prod_single_card_holder p-1 m-1 max-w-5xl mx-auto">
       {cart.map((item, index) => (
         <div
           key={index}
-          className="prod_single_card  flex flex-col sm:flex-row items-center justify-between p-4 mb-4 text-white bg-red-600 rounded-lg shadow-md gap-4">
+          className="prod_single_card  flex flex-col sm:flex-row items-center justify-between p-1 mb-1 text-white bg-red-600 rounded-lg shadow-md gap-2">
           <img
             src={`${IMAGE_BASE_URL}${item.images?.[0] || "missing.png"}`}
             alt={item.name}
@@ -49,7 +49,7 @@ export default function Cart() {
             </button>
             <div className="prod_qts_control md:flex  grid grid-col items-center gap-2">
               <button
-                className="bg-gray-200 w-10 h-10 rounded flex items-center justify-center text-lg"
+                className="bg-red-600 w-10 h-10 rounded flex items-center justify-center text-lg"
                 onClick={() => decrement(index)}
                 aria-label={`Decrease quantity of ${item.name}`}>
                 −
@@ -58,7 +58,7 @@ export default function Cart() {
                 {item.quantity}
               </span>
               <button
-                className="bg-gray-200 w-10 h-10 rounded flex items-center justify-center text-lg"
+                className="bg-red-600 w-10 h-10 rounded flex items-center justify-center text-lg"
                 onClick={() => increment(index)}
                 aria-label={`Increase quantity of ${item.name}`}>
                 +

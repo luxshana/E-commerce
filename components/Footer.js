@@ -59,7 +59,7 @@ export default function Footer() {
           </ul>
         </div>
       </footer>
-      <nav className={`side-menu ${menuOpen ? "open" : ""}`}>
+      <nav className={`bottom-menu ${menuOpen ? "open" : ""}`}>
         <button
           className="close-btn"
           onClick={toggleMenu}
@@ -72,10 +72,19 @@ export default function Footer() {
               Home
             </Link>
           </li>
-     
+          <li>
+            <Link href="/" onClick={toggleMenu}>
+              About
+            </Link>
+          </li>
+          <li>
+            <Link href="/" onClick={toggleMenu}>
+              Contact
+            </Link>
+          </li>
         </ul>
       </nav>
-       {menuOpen && <div className="overlay" onClick={toggleMenu}></div>}
+      {menuOpen && <div className="overlay" onClick={toggleMenu}></div>}
     </>
   );
 }

@@ -226,6 +226,35 @@ button.bkme img {
   left: 0;
 }
 
+.bottom-menu {
+  position: fixed;
+  bottom: -100vh; /* Hidden below the screen by default */
+  left: 0;
+  width: 100vw;
+  height: 80vh; /* Adjust height as needed */
+  background-color: var(--clr_two);
+  backdrop-filter: blur(10px);
+  color: white;
+  padding: 20px;
+  transition: bottom 0.3s ease;
+  z-index: 1500;
+  overflow-y: auto;
+  
+}
+
+.bottom-menu.open {
+  bottom: 0; /* Slides up to the bottom of the screen */
+}
+.bottom-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bottom-menu li {
+  margin: 15px 0;
+}
+
 /* Close button inside side menu */
 .close-btn {
   position: absolute;
@@ -1069,8 +1098,8 @@ button.option-btn {
   height: 35px;
   border-radius: 500px;
   border: 1px solid #fdfdfd;
-  background: none;
-  color: #fefdfd;
+
+  
 }
 
 .addtocart button.submit {

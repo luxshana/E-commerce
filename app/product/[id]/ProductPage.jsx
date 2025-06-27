@@ -157,10 +157,9 @@ export default function ProductPage({ initialProduct }) {
           </h1>
           <p className="text-gray-600 text-base sm:text-lg">
             €{product.product.price}
-            
           </p>
           <p className="text-lg sm:text-xl font-semibold text-gray-800">
-           {product.product.description}
+            {product.product.description}
           </p>
           <p className="text-xl sm:text-2xl font-bold text-yellow-400">
             Total: €{calculateTotalPrice} ({quantity} x €{product.product.price}
@@ -357,23 +356,27 @@ export default function ProductPage({ initialProduct }) {
             </div>
           </div>
         </div>
-       <div className="group relative block md:m-4 h-[500px] w-[500px] rounded-lg shadow-lg bg-red-700">
-  <div className="flex flex-col h-full">
- <div className="flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto max-h-screen">
-  <Cart />
-</div>
-    {totalItems > 0 && (
-      <div className="flex flex-col p-4 border-t border-red-600 bg-red-700">
-        <span className="text-sm text-yellow-500 text-bold">
-          {totalItems} Produits | Montant total: €{totalPrice.toFixed(2)}
-        </span>
-        <Link href="/checkout">
-          <button className="btnStyle1 w-full sm:w-auto">place an order</button>
-        </Link>
+      <div className="group relative block w-full max-w-[600px] mx-auto rounded-lg shadow-lg bg-red-700
+      h-[400px] sm:h-[450px] md:h-[500px]">
+      <div className="flex flex-col h-full">
+        <div className="flex-1 p-1 sm:p-1 md:p-1 lg:p-1 overflow-y-auto max-h-screen">
+          <Cart />
+        </div>
+        {totalItems > 0 && (
+          <div className="flex flex-col p-3 sm:p-4 border-t border-red-600 bg-red-700">
+            <span className="text-xs sm:text-sm text-yellow-500 font-bold">
+              {totalItems} Produit{totalItems > 1 ? 's' : ''} | Montant total: €{totalPrice.toFixed(2)}
+            </span>
+            <Link href="/checkout">
+              <button className="mt-2 sm:mt-3 bg-yellow-500 text-red-700 font-semibold py-2 px-4 rounded-lg
+                hover:bg-yellow-400 transition-colors duration-200 w-full sm:w-auto text-sm sm:text-base">
+                Passer la commande
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
-    )}
-  </div>
-</div>
+    </div>
       </div>
 
       {showPopup && (
