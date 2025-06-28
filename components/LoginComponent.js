@@ -110,8 +110,8 @@ export default function LoginComponent({
   }
 
   return (
-    <div className="login-container">
-      <h2>SE CONNECTER</h2>
+    <div className="login-container align-left text-left">
+      <h2 className="">SE CONNECTER</h2>
       {error && <p className="error-message">{error}</p>}{" "}
       {/* Display error message */}
       <form onSubmit={handleSubmit}>
@@ -139,7 +139,7 @@ export default function LoginComponent({
         {/* Use Next.js Link component */}
         <Link href="/register">ou Créer un compte rapide</Link>
         <br />
-        <Link href="/lostpassword">Mot de passe oublié?</Link>
+        
       </div>
     </div>
   );
