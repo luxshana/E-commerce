@@ -111,7 +111,7 @@ export default function LoginComponent({
 
   return (
     <div className="login-container align-left text-left">
-      <h2 className="">SE CONNECTER</h2>
+      <h2 className="text-left">SE CONNECTER</h2>
       {error && <p className="error-message">{error}</p>}{" "}
       {/* Display error message */}
       <form onSubmit={handleSubmit}>
