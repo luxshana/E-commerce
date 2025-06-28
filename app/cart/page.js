@@ -9,7 +9,7 @@ const IMAGE_BASE_URL =
   "https://orange-wolf-342633.hostingersite.com/uploads/products/";
 // Note: This is a Server Component by default
 export default function CartPage() {
-  const { totalPrice, totalItems, cart, increment, decrement, } =
+  const { totalPrice, totalItems, cart,removeItem, increment, decrement, } =
       useContext(CartContext);
   return (
     <div className="ck-container">

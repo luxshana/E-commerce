@@ -1,14 +1,13 @@
 /* components/cart/Cart.js */
 "use client"; // Mark as Client Component to use useContext
 import React, { useContext } from "react";
-import { CartContext } from "./CartContext"; // Adjust path: relative to components/cart/
-import Link from "next/link";
-import { useState } from "react";
+import { CartContext } from "./CartContext"; // Adjust path: relative to components/cart
+
 const IMAGE_BASE_URL =
   "https://orange-wolf-342633.hostingersite.com/uploads/products/";
 
 export default function Cart() {
-  const { cart, increment, decrement, removeItem, totalPrice, totalItems } =
+  const { cart, increment, decrement, removeItem} =
     useContext(CartContext);
 
   if (cart.length === 0) {
