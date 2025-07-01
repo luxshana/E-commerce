@@ -11,7 +11,7 @@ const SuccessPopup = ({ productName, choices, onClose }) => {
   }, [onClose]);
 
   return (
-    <div className="success_popup">
+    <div className="success_popup ">
       <div className="success_line"></div>
       <button
         onClick={onClose}
