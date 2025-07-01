@@ -22,7 +22,19 @@ export default function ProductPage({ initialProduct }) {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedDrink, setSelectedDrink] = useState(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+
+    if (!selectedSize) {
+      return; // Stop submission if no size selected
+    }
+
+    // Continue with form submission
+    // ...
+  };
   const sizes = [
     { id: 1, name: "Senior", price: "", icon: "🍕" },
     { id: 2, name: "Mega", price: "€5", icon: "🍕" },
@@ -97,14 +109,26 @@ export default function ProductPage({ initialProduct }) {
   }, [product, selectedOptions, quantity, selectedSize, selectedDrink]);
 
   const handleAddToCart = () => {
+    setIsSubmitted(true);
+
+    // Validate required fields
+    if (!selectedSize) {
+      return; // Stop if no size selected
+    }
+
+    // Proceed if validation passes
     if (!product?.product) return;
+
     addToCart(product, quantity, {
       ...selectedOptions,
       size: selectedSize,
       drink: selectedDrink,
     });
+
     setShowPopup(true);
   };
+
+  // You can remove the separate handleSubmit function since we've merged the logic
 
   if (!product)
     return (
@@ -165,7 +189,6 @@ export default function ProductPage({ initialProduct }) {
             Total: €{calculateTotalPrice} ({quantity} x €{product.product.price}
             )
           </p>
-
           <div className="p-4 bg-white rounded-lg shadow-md border border-dashed border-black">
             <div className="text-base sm:text-lg font-medium mb-3">Size:</div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -176,8 +199,15 @@ export default function ProductPage({ initialProduct }) {
                     selectedSize === size.name
                       ? "bg-yellow-400 border-2 border-yellow-400"
                       : "bg-white border border-gray-200 hover:bg-yellow-400"
+                  } ${
+                    // Add red border if validation fails
+                    isSubmitted && !selectedSize ? "border-red-500" : ""
                   }`}
-                  onClick={() => setSelectedSize(size.name)}>
+                  onClick={() => {
+                    setSelectedSize(size.name);
+                    // Clear validation error when selecting
+                    if (isSubmitted) setIsSubmitted(false);
+                  }}>
                   <img
                     src={`${IMAGE_BASE_URL}${
                       size.images?.[0] || "missing.png"
@@ -194,6 +224,10 @@ export default function ProductPage({ initialProduct }) {
                 </div>
               ))}
             </div>
+            {/* Validation error message */}
+            {isSubmitted && !selectedSize && (
+              <p className="mt-2 text-sm text-red-600">Please select a size</p>
+            )}
           </div>
 
           <div className="p-4 bg-white rounded-lg shadow-md border border-dashed border-red-600">
@@ -356,27 +390,30 @@ export default function ProductPage({ initialProduct }) {
             </div>
           </div>
         </div>
-      <div className="group relative block w-full max-w-[600px] mx-auto rounded-lg shadow-lg bg-red-700
+        <div
+          className="group relative block w-full max-w-[600px] mx-auto rounded-lg shadow-lg bg-red-700
       h-[400px] sm:h-[450px] md:h-[500px]">
-      <div className="flex flex-col h-full">
-        <div className="flex-1 p-1 sm:p-1 md:p-1 lg:p-1 overflow-y-auto max-h-screen">
-          <Cart />
-        </div>
-        {totalItems > 0 && (
-          <div className="flex flex-col p-3 sm:p-4 border-t border-red-600 bg-red-700">
-            <span className="text-xs sm:text-sm text-yellow-500 font-bold">
-              {totalItems} Produit{totalItems > 1 ? 's' : ''} | Montant total: €{totalPrice.toFixed(2)}
-            </span>
-            <Link href="/checkout">
-              <button className="mt-2 sm:mt-3 bg-yellow-500 text-red-700 font-semibold py-2 px-4 rounded-lg
+          <div className="flex flex-col h-full">
+            <div className="flex-1 p-1 sm:p-1 md:p-1 lg:p-1 overflow-y-auto max-h-screen">
+              <Cart />
+            </div>
+            {totalItems > 0 && (
+              <div className="flex flex-col p-3 sm:p-4 border-t border-red-600 bg-red-700">
+                <span className="text-xs sm:text-sm text-yellow-500 font-bold">
+                  {totalItems} Produit{totalItems > 1 ? "s" : ""} | Montant
+                  total: €{totalPrice.toFixed(2)}
+                </span>
+                <Link href="/checkout">
+                  <button
+                    className="mt-2 sm:mt-3 bg-yellow-500 text-red-700 font-semibold py-2 px-4 rounded-lg
                 hover:bg-yellow-400 transition-colors duration-200 w-full sm:w-auto text-sm sm:text-base">
-                Passer la commande
-              </button>
-            </Link>
+                    Passer la commande
+                  </button>
+                </Link>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-    </div>
+        </div>
       </div>
 
       {showPopup && (

@@ -319,12 +319,12 @@ button.bkme img {
   top: 50px;
   right: 0;
   background: rgb(200 219 186);
-  padding: 1rem;
+  padding: 2rem;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   z-index: 1005;
-  width: calc(100vw - 0rem);
+  width: calc(100vw - 2rem);
 }
 .success_line {
   position: absolute;
